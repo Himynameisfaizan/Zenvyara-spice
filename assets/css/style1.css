@@ -1,0 +1,217 @@
+/* =========================================
+   Modern Spice Light Theme Variables
+========================================= */
+:root {
+    --theme-color: #8cc63f;
+    /* Fresh Green from Zenvyara Logo */
+    --theme-hover: #75a832;
+    /* Slightly darker green for hover */
+    --theme-light: #f4f8ee;
+    /* Very soft green/cream for backgrounds */
+    --text-dark: #2c3323;
+    /* Charcoal grey for crisp reading */
+    --text-muted: #6c757d;
+    /* Standard soft grey */
+    --border-light: #eaeaea;
+}
+
+/* =========================================
+   Product Tabs Styling
+========================================= */
+.custom-tab {
+    background-color: #fff;
+    color: #333;
+    border: 1px solid #eaeaea;
+    border-radius: 12px;
+    padding: 15px 25px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    min-width: 130px;
+}
+
+.custom-tab img {
+    opacity: 0.6;
+    transition: all 0.3s ease;
+}
+
+.custom-tab:hover {
+    border-color: var(--theme-color);
+    color: var(--theme-color);
+}
+
+.custom-tab.active {
+    background-color: var(--theme-color) !important;
+    color: #fff !important;
+    border-color: var(--theme-color) !important;
+    box-shadow: 0 8px 15px rgba(211, 84, 0, 0.2);
+}
+
+.custom-tab.active img {
+    filter: brightness(0) invert(1);
+    /* Makes the icon white when active */
+    opacity: 1;
+}
+
+/* =========================================
+   Product Card Styling
+========================================= */
+.modern-card {
+    transition: all 0.3s ease;
+}
+
+.modern-card:hover {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    transform: translateY(-5px);
+    border-color: transparent !important;
+}
+
+/* Image Zoom Effect */
+.hover-zoom {
+    transition: transform 0.5s ease;
+    max-height: 200px;
+    /* Adjust based on your images to keep cards uniform */
+    object-fit: contain;
+}
+
+.modern-card:hover .hover-zoom {
+    transform: scale(1.08);
+}
+
+/* Action Buttons (Cart, Compare, Wishlist) - Slide Up Effect */
+.product-add-action {
+    bottom: -20px;
+    left: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+    z-index: 2;
+}
+
+.modern-card:hover .product-add-action {
+    bottom: 20px;
+    opacity: 1;
+    visibility: visible;
+}
+
+.action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: #fff;
+    color: #333;
+    border-radius: 50%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-size: 18px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.action-btn:hover {
+    background-color: var(--theme-color);
+    color: #fff;
+    transform: translateY(-3px);
+}
+
+/* Utility text color */
+.text-theme {
+    color: var(--theme-color) !important;
+}
+
+/* =========================================
+   Modern Animated Banners
+========================================= */
+
+/* Main Banner Card */
+.modern-banner {
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease;
+    cursor: pointer;
+    background-color: #000;
+    /* Fallback behind image */
+}
+
+.modern-banner:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12) !important;
+}
+
+/* Image Zoom Animation */
+.banner-zoom {
+    transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    min-height: 280px;
+    /* Ensures all banners look identical in height */
+    object-fit: cover;
+}
+
+.modern-banner:hover .banner-zoom {
+    transform: scale(1.08);
+    /* Smoothly scales up */
+}
+
+/* Gradient Overlay for Text Readability */
+.banner-overlay {
+    position: absolute;
+    inset: 0;
+    /* Dark gradient at the bottom fading to transparent at the top */
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0) 100%);
+    opacity: 0.8;
+    transition: opacity 0.4s ease;
+    z-index: 1;
+}
+
+.modern-banner:hover .banner-overlay {
+    opacity: 1;
+}
+
+/* Content Positioning & Text Animation */
+.inner-content {
+    z-index: 2;
+    /* Keeps text above the overlay */
+}
+
+.banner-text-anim {
+    transition: transform 0.4s ease;
+    transform: translateY(10px);
+    /* Starts slightly lower */
+}
+
+.modern-banner:hover .banner-text-anim {
+    transform: translateY(0);
+    /* Slides up perfectly into place */
+}
+
+/* Button & Icon Slide Animation */
+.hover-slide-icon i {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.modern-banner:hover .hover-slide-icon i {
+    transform: translateX(5px);
+    /* Arrow moves to the right */
+}
+
+/* Button Theming */
+.btn-light {
+    background-color: #fff;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.btn-light:hover {
+    background-color: var(--theme-color) !important;
+    color: #fff !important;
+    box-shadow: 0 5px 15px rgba(211, 84, 0, 0.3) !important;
+}
+
+/* Badge specific fix */
+.bg-theme {
+    background-color: var(--theme-color) !important;
+}
+
+.text-theme {
+    color: var(--theme-color) !important;
+}
