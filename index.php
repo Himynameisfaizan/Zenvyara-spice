@@ -1,3 +1,13 @@
+<?php
+
+include("./admin/db-conn.php");
+
+$sql = "SELECT * FROM `products` LIMIT 4";
+$sqlArr = "SELECT * FROM `products` order by id LIMIT 6;";
+$result = $conn->query($sql);
+$resultArr = $conn->query($sqlArr);
+?>
+
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -6,7 +16,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Template - global export</title>
-   
+
 
 </head>
 
@@ -14,7 +24,7 @@
 
     <div class="main-wrapper">
 
-      <?php include ("./include/header.php") ?>
+        <?php include("./include/header.php") ?>
 
         <!-- Begin Slider Area -->
         <div class="slider-area">
@@ -162,7 +172,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <!-- Styled Tabs -->
-                        <ul class="nav product-tab-nav pb-5 d-flex justify-content-center gap-3 border-0" id="myTab" role="tablist">
+                        <ul class="nav product-tab-nav py-10 d-flex justify-content-center gap-3 border-0" id="myTab" role="tablist">
                             <li class="nav-item" role="presentation">
                                 <a class="nav-link active custom-tab" id="all-items-tab" data-bs-toggle="tab" href="#all-items" role="tab">
                                     <span class="d-block mb-2"><img src="assets/images/product/icon/1.png" alt="Icon" width="30"></span>
@@ -198,142 +208,42 @@
                         <!-- Product Grid -->
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="all-items" role="tabpanel">
-                                <div class="row g-4">
+                                <div class="row g-4 zv-product-grid">
 
                                     <!-- Product Item 1 -->
-                                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
-                                        <div class="product-item modern-card h-100 bg-white rounded-3 overflow-hidden position-relative border">
-                                            <div class="product-img position-relative p-4 bg-white text-center">
-                                                <a href="#">
-                                                    <img class="img-fluid hover-zoom" src="assets/images/product/medium-size/moringa.png" alt="Moringa Powder">
-                                                </a>
-                                                <!-- Hover Action Buttons -->
-                                                <div class="product-add-action position-absolute w-100">
-                                                    <ul class="d-flex justify-content-center gap-2 list-unstyled mb-0">
-                                                        <li><a href="#" class="action-btn" title="Add to Cart"><i class="pe-7s-cart"></i></a></li>
-                                                        <li><a href="#" class="action-btn" title="Compare"><i class="pe-7s-shuffle"></i></a></li>
-                                                        <li><a href="#" class="action-btn" title="Wishlist"><i class="pe-7s-like"></i></a></li>
-                                                    </ul>
+                                    <?php
+                                    if ($result && $result->num_rows > 0) {
+                                        while ($row = $result->fetch_assoc()) {
+                                    ?>
+                                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
+                                                <div class="zv-pro-card">
+                                                    <div class="zv-img-wrap">
+                                                        <span class="zv-badge">Export Quality</span>
+                                                        <a href="#">
+                                                            <img src="assets/images/product/medium-size/moringa.png" alt="Moringa Powder">
+                                                        </a>
+                                                    </div>
+                                                    <div class="zv-card-body">
+                                                        <div class="zv-rating">
+                                                            <i class="fa-solid fa-star"></i>
+                                                            <i class="fa-solid fa-star"></i>
+                                                            <i class="fa-solid fa-star"></i>
+                                                            <i class="fa-solid fa-star"></i>
+                                                            <i class="fa-solid fa-star"></i>
+                                                        </div>
+                                                        <a href="#" class="zv-pro-title"><?php echo $row["pro_name"]; ?></a>
+                                                        <div class="zv-pro-price">
+                                                            <span class="zv-currency">₹</span>80.00
+                                                        </div>
+                                                        <div class="zv-card-footer">
+                                                            <a href="#" class="zv-btn-outline"><i class="fa-solid fa-eye"></i> View Details</a>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="product-content p-3 text-center border-top">
-                                                <a class="product-name text-dark fw-bold text-decoration-none d-block mb-1" href="#">Moringa Powder</a>
-                                                <div class="price-box mb-2">
-                                                    <span class="new-price text-theme fw-bold fs-5">$80.00</span>
-                                                </div>
-                                                <div class="rating-box">
-                                                    <ul class="d-flex justify-content-center list-unstyled mb-0 text-warning fs-6">
-                                                        <li><i class="pe-7s-star"></i></li>
-                                                        <li><i class="pe-7s-star"></i></li>
-                                                        <li><i class="pe-7s-star"></i></li>
-                                                        <li><i class="pe-7s-star"></i></li>
-                                                        <li><i class="pe-7s-star"></i></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <?php }
+                                    } ?>
 
-                                    <!-- Product Item 2 -->
-                                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
-                                        <div class="product-item modern-card h-100 bg-white rounded-3 overflow-hidden position-relative border">
-                                            <div class="product-img position-relative p-4 bg-white text-center">
-                                                <a href="#">
-                                                    <img class="img-fluid hover-zoom" src="assets/images/product/medium-size/chickpeas.png" alt="Chickpeas">
-                                                </a>
-                                                <div class="product-add-action position-absolute w-100">
-                                                    <ul class="d-flex justify-content-center gap-2 list-unstyled mb-0">
-                                                        <li><a href="#" class="action-btn"><i class="pe-7s-cart"></i></a></li>
-                                                        <li><a href="#" class="action-btn"><i class="pe-7s-shuffle"></i></a></li>
-                                                        <li><a href="#" class="action-btn"><i class="pe-7s-like"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div class="product-content p-3 text-center border-top">
-                                                <a class="product-name text-dark fw-bold text-decoration-none d-block mb-1" href="#">Premium Chickpeas</a>
-                                                <div class="price-box mb-2">
-                                                    <span class="new-price text-theme fw-bold fs-5">$45.00</span>
-                                                </div>
-                                                <div class="rating-box">
-                                                    <ul class="d-flex justify-content-center list-unstyled mb-0 text-warning fs-6">
-                                                        <li><i class="pe-7s-star"></i></li>
-                                                        <li><i class="pe-7s-star"></i></li>
-                                                        <li><i class="pe-7s-star"></i></li>
-                                                        <li><i class="pe-7s-star"></i></li>
-                                                        <li class="text-muted"><i class="pe-7s-star"></i></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Product Item 3 -->
-                                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
-                                        <div class="product-item modern-card h-100 bg-white rounded-3 overflow-hidden position-relative border">
-                                            <div class="product-img position-relative p-4 bg-white text-center">
-                                                <a href="#">
-                                                    <img class="img-fluid hover-zoom" src="assets/images/product/medium-size/fennel.png" alt="Fennel Seeds">
-                                                </a>
-                                                <div class="product-add-action position-absolute w-100">
-                                                    <ul class="d-flex justify-content-center gap-2 list-unstyled mb-0">
-                                                        <li><a href="#" class="action-btn"><i class="pe-7s-cart"></i></a></li>
-                                                        <li><a href="#" class="action-btn"><i class="pe-7s-shuffle"></i></a></li>
-                                                        <li><a href="#" class="action-btn"><i class="pe-7s-like"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div class="product-content p-3 text-center border-top">
-                                                <a class="product-name text-dark fw-bold text-decoration-none d-block mb-1" href="#">Fennel Seeds (Saunf)</a>
-                                                <div class="price-box mb-2">
-                                                    <span class="new-price text-theme fw-bold fs-5">$30.00</span>
-                                                </div>
-                                                <div class="rating-box">
-                                                    <ul class="d-flex justify-content-center list-unstyled mb-0 text-warning fs-6">
-                                                        <li><i class="pe-7s-star"></i></li>
-                                                        <li><i class="pe-7s-star"></i></li>
-                                                        <li><i class="pe-7s-star"></i></li>
-                                                        <li><i class="pe-7s-star"></i></li>
-                                                        <li><i class="pe-7s-star"></i></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Product Item 4 -->
-                                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
-                                        <div class="product-item modern-card h-100 bg-white rounded-3 overflow-hidden position-relative border">
-                                            <div class="product-img position-relative p-4 bg-white text-center">
-                                                <a href="#">
-                                                    <img class="img-fluid hover-zoom" src="assets/images/product/medium-size/castor.png" alt="Castor Seeds">
-                                                </a>
-                                                <div class="product-add-action position-absolute w-100">
-                                                    <ul class="d-flex justify-content-center gap-2 list-unstyled mb-0">
-                                                        <li><a href="#" class="action-btn"><i class="pe-7s-cart"></i></a></li>
-                                                        <li><a href="#" class="action-btn"><i class="pe-7s-shuffle"></i></a></li>
-                                                        <li><a href="#" class="action-btn"><i class="pe-7s-like"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div class="product-content p-3 text-center border-top">
-                                                <a class="product-name text-dark fw-bold text-decoration-none d-block mb-1" href="#">Organic Castor Seeds</a>
-                                                <div class="price-box mb-2">
-                                                    <span class="new-price text-theme fw-bold fs-5">$55.00</span>
-                                                </div>
-                                                <div class="rating-box">
-                                                    <ul class="d-flex justify-content-center list-unstyled mb-0 text-warning fs-6">
-                                                        <li><i class="pe-7s-star"></i></li>
-                                                        <li><i class="pe-7s-star"></i></li>
-                                                        <li><i class="pe-7s-star"></i></li>
-                                                        <li><i class="pe-7s-star"></i></li>
-                                                        <li><i class="pe-7s-star"></i></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Add more grid items (col-xl-3) here following the exact same structure as above -->
 
                                 </div>
                             </div>
@@ -395,201 +305,124 @@
         </div>
         <!-- Banner Area End Here -->
 
-        <!-- Begin Product Area -->
-        <div class="product-area section-space-y-axis-100">
+        <!-- ==========================================
+     LATEST ARRIVAL PRODUCTS SLIDER
+=========================================== -->
+        <div class="product-area section-padding reveal">
             <div class="container">
-                <div class="section-title text-center pb-55">
-                    <span class="sub-title text-primary">See Our Latest</span>
-                    <h2 class="title mb-0">Arrival Products</h2>
+                <!-- Section Title -->
+                <div class="section-title text-center pb-5 mb-4">
+                    <span class="sub-title text-primary" style="color: var(--bs-primary); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">See Our Latest</span>
+                    <h2 class="title mb-0" style="font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 700;">Arrival Products</h2>
                 </div>
+
                 <div class="row">
-                    <div class="col-lg-12">
-                        <div class="swiper-container product-slider swiper-arrow with-radius border-issue">
-                            <div class="swiper-wrapper">
+                    <div class="col-lg-12 position-relative">
+
+                        <!-- Custom Swiper Container -->
+                        <div class="swiper zv-arrival-slider">
+                            <div class="swiper-wrapper py-3">
+
+                                <!-- Slide 1: Chickpeas -->
+                                 <?php 
+                                 if($result && $result->num_rows> 0){
+                                    while($row = $result->fetch_assoc()){
+                                        
+                                 ?>
                                 <div class="swiper-slide">
-                                    <div class="product-item">
-                                        <div class="product-img img-zoom-effect">
+                                    <div class="zv-pro-card">
+                                        <div class="zv-img-wrap">
+                                            <span class="zv-badge">New Arrival</span>
                                             <a href="#">
-                                                <img class="img-full" src="assets/images/product/medium-size/chickpeas.png" alt="Product Images">
+                                                <img src="assets/images/product/medium-size/chickpeas.png" alt="Premium Chickpeas">
                                             </a>
-                                            <div class="product-add-action">
-                                                <ul>
-                                                    <li>
-                                                        <a href="#">
-                                                            <i class="pe-7s-cart"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">
-                                                            <i class="pe-7s-shuffle"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">
-                                                            <i class="pe-7s-like"></i>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
                                         </div>
-                                        <div class="product-content">
-                                            <a class="product-name" href="#">Chickpeas</a>
-                                            <div class="price-box pb-1">
-                                                <span class="new-price">$80.00</span>
+                                        <div class="zv-card-body">
+                                            <div class="zv-rating">
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
                                             </div>
-                                            <div class="rating-box">
-                                                <ul>
-                                                    <li><i class="pe-7s-star"></i></li>
-                                                    <li><i class="pe-7s-star"></i></li>
-                                                    <li><i class="pe-7s-star"></i></li>
-                                                    <li><i class="pe-7s-star"></i></li>
-                                                    <li><i class="pe-7s-star"></i></li>
-                                                </ul>
+                                            <a href="#" class="zv-pro-title"><?php echo $row['pro_name']?></a>
+                                            <div class="zv-pro-price">
+                                                <span class="zv-currency">₹</span>80.00
+                                            </div>
+                                            <div class="zv-card-footer">
+                                                <a href="#" class="zv-btn-outline"><i class="fa-solid fa-eye"></i> View Details</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+<?php }} ?>
+                                <!-- Slide 2: Fennel -->
                                 <div class="swiper-slide">
-                                    <div class="product-item">
-                                        <div class="product-img img-zoom-effect">
+                                    <div class="zv-pro-card">
+                                        <div class="zv-img-wrap">
                                             <a href="#">
-                                                <img class="img-full" src="assets/images/product/medium-size/fennel.png" alt="Product Images">
+                                                <img src="assets/images/product/medium-size/fennel.png" alt="Fennel Seeds">
                                             </a>
-                                            <div class="product-add-action">
-                                                <ul>
-                                                    <li>
-                                                        <a href="#">
-                                                            <i class="pe-7s-cart"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">
-                                                            <i class="pe-7s-shuffle"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">
-                                                            <i class="pe-7s-like"></i>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
                                         </div>
-                                        <div class="product-content">
-                                            <a class="product-name" href="#">Fennel</a>
-                                            <div class="price-box pb-1">
-                                                <span class="new-price">$80.00</span>
+                                        <div class="zv-card-body">
+                                            <div class="zv-rating">
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
                                             </div>
-                                            <div class="rating-box">
-                                                <ul>
-                                                    <li><i class="pe-7s-star"></i></li>
-                                                    <li><i class="pe-7s-star"></i></li>
-                                                    <li><i class="pe-7s-star"></i></li>
-                                                    <li><i class="pe-7s-star"></i></li>
-                                                    <li><i class="pe-7s-star"></i></li>
-                                                </ul>
+                                            <a href="#" class="zv-pro-title">Fennel Seeds (Saunf)</a>
+                                            <div class="zv-pro-price">
+                                                <span class="zv-currency">₹</span>80.00
+                                            </div>
+                                            <div class="zv-card-footer">
+                                                <a href="#" class="zv-btn-outline"><i class="fa-solid fa-eye"></i> View Details</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
+                                <!-- Slide 3: Moringa -->
                                 <div class="swiper-slide">
-                                    <div class="product-item">
-                                        <div class="product-img img-zoom-effect">
+                                    <div class="zv-pro-card">
+                                        <div class="zv-img-wrap">
                                             <a href="#">
-                                                <img class="img-full" src="assets/images/product/medium-size/moringa.png" alt="Product Images">
+                                                <img src="assets/images/product/medium-size/moringa.png" alt="Moringa Powder">
                                             </a>
-                                            <div class="product-add-action">
-                                                <ul>
-                                                    <li>
-                                                        <a href="#">
-                                                            <i class="pe-7s-cart"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">
-                                                            <i class="pe-7s-shuffle"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">
-                                                            <i class="pe-7s-like"></i>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
                                         </div>
-                                        <div class="product-content">
-                                            <a class="product-name" href="#">Moringa</a>
-                                            <div class="price-box pb-1">
-                                                <span class="new-price">$80.00</span>
+                                        <div class="zv-card-body">
+                                            <div class="zv-rating">
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
                                             </div>
-                                            <div class="rating-box">
-                                                <ul>
-                                                    <li><i class="pe-7s-star"></i></li>
-                                                    <li><i class="pe-7s-star"></i></li>
-                                                    <li><i class="pe-7s-star"></i></li>
-                                                    <li><i class="pe-7s-star"></i></li>
-                                                    <li><i class="pe-7s-star"></i></li>
-                                                </ul>
+                                            <a href="#" class="zv-pro-title">Organic Moringa Powder</a>
+                                            <div class="zv-pro-price">
+                                                <span class="zv-currency">₹</span>80.00
+                                            </div>
+                                            <div class="zv-card-footer">
+                                                <a href="#" class="zv-btn-outline"><i class="fa-solid fa-eye"></i> View Details</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="swiper-slide">
-                                    <div class="product-item">
-                                        <div class="product-img img-zoom-effect">
-                                            <a href="#">
-                                                <img class="img-full" src="assets/images/product/medium-size/mustard.png" alt="Product Images">
-                                            </a>
-                                            <div class="product-add-action">
-                                                <ul>
-                                                    <li>
-                                                        <a href="cart.html">
-                                                            <i class="pe-7s-cart"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="compare.html">
-                                                            <i class="pe-7s-shuffle"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="wishlist.html">
-                                                            <i class="pe-7s-like"></i>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="product-content">
-                                            <a class="product-name" href="#">Mustard</a>
-                                            <div class="price-box pb-1">
-                                                <span class="new-price">$80.00</span>
-                                            </div>
-                                            <div class="rating-box">
-                                                <ul>
-                                                    <li><i class="pe-7s-star"></i></li>
-                                                    <li><i class="pe-7s-star"></i></li>
-                                                    <li><i class="pe-7s-star"></i></li>
-                                                    <li><i class="pe-7s-star"></i></li>
-                                                    <li><i class="pe-7s-star"></i></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+
+                                <!-- Add more slides here following the same structure -->
+
                             </div>
-                            <!-- Add Arrows -->
-                            <div class="swiper-nav-wrap">
-                                <div class="swiper-button-next"></div>
-                            </div>
-                            <div class="swiper-button-prev"></div>
                         </div>
+
+                        <!-- Custom Navigation Arrows (Outside the wrapper to prevent cutting off) -->
+                        <div class="zv-swiper-btn-prev shadow-sm"><i class="fa-solid fa-chevron-left"></i></div>
+                        <div class="zv-swiper-btn-next shadow-sm"><i class="fa-solid fa-chevron-right"></i></div>
+
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Product Area End Here -->
 
         <!-- Begin Banner Area -->
         <div class="banner-area banner-with-parallax py-10" data-bg-image="assets/images/banner/2-1-1920x523.jpg">
@@ -874,106 +707,106 @@
         </div>
         <!-- Product Area End Here -->
 
-      <section class="blog-section section-padding reveal">
-    <div class="container">
-        <div class="section-title-wrap text-center mb-5">
-            <span class="sub-title">Latest Updates</span>
-            <h2 class="section-title">Industry News & Blogs</h2>
-        </div>
-
-        <div class="blog-grid-wrapper">
-
-            <!-- Blog Card 1 -->
-            <div class="zen-blog-card">
-                <div class="card-image-wrap">
-                    <img src="assets/images/product/medium-size/moringa.png" alt="Spice Export Trends">
+        <section class="blog-section section-padding reveal">
+            <div class="container">
+                <div class="section-title-wrap text-center mb-5">
+                    <span class="sub-title">Latest Updates</span>
+                    <h2 class="section-title">Industry News & Blogs</h2>
                 </div>
-                <div class="card-content">
-                    <div class="blog-meta">
-                        <span><i class="fa-solid fa-user-tie"></i> Zenvyara Admin</span>
-                        <span><i class="fa-solid fa-calendar-days"></i> 23 Jul 2026</span>
-                    </div>
-                    <h3 class="blog-title">Global Spice Export Trends in 2026</h3>
-                    <p class="blog-short-desc">Discover the rising demand for organic spices in the European market...</p>
 
-                    <!-- Button with Data Attributes -->
-                    <button type="button" class="btn-read-more open-blog-modal"
-                        data-img="assets/images/product/medium-size/moringa.png"
-                        data-admin="Zenvyara Admin"
-                        data-date="23 Jul 2026"
-                        data-title="Global Spice Export Trends in 2026"
-                        data-short="Discover the rising demand for organic spices in the European market and how exporters are adapting."
-                        data-long="The international spice trade has seen a massive shift towards organic and ethically sourced products. In 2026, European and North American buyers are prioritizing transparency in the supply chain. At Zenvyara, we have adapted to these trends by implementing strict quality control and direct-to-farm procurement strategies. This ensures that every batch we export meets the highest global standards, giving our clients a competitive edge in their local markets.">
-                        READ MORE <i class="fa-solid fa-arrow-right-long"></i>
-                    </button>
+                <div class="blog-grid-wrapper">
+
+                    <!-- Blog Card 1 -->
+                    <div class="zen-blog-card">
+                        <div class="card-image-wrap">
+                            <img src="assets/images/product/medium-size/moringa.png" alt="Spice Export Trends">
+                        </div>
+                        <div class="card-content">
+                            <div class="blog-meta">
+                                <span><i class="fa-solid fa-user-tie"></i> Zenvyara Admin</span>
+                                <span><i class="fa-solid fa-calendar-days"></i> 23 Jul 2026</span>
+                            </div>
+                            <h3 class="blog-title">Global Spice Export Trends in 2026</h3>
+                            <p class="blog-short-desc">Discover the rising demand for organic spices in the European market...</p>
+
+                            <!-- Button with Data Attributes -->
+                            <button type="button" class="btn-read-more open-blog-modal"
+                                data-img="assets/images/product/medium-size/moringa.png"
+                                data-admin="Zenvyara Admin"
+                                data-date="23 Jul 2026"
+                                data-title="Global Spice Export Trends in 2026"
+                                data-short="Discover the rising demand for organic spices in the European market and how exporters are adapting."
+                                data-long="The international spice trade has seen a massive shift towards organic and ethically sourced products. In 2026, European and North American buyers are prioritizing transparency in the supply chain. At Zenvyara, we have adapted to these trends by implementing strict quality control and direct-to-farm procurement strategies. This ensures that every batch we export meets the highest global standards, giving our clients a competitive edge in their local markets.">
+                                READ MORE <i class="fa-solid fa-arrow-right-long"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Blog Card 2 -->
+                    <div class="zen-blog-card">
+                        <div class="card-image-wrap">
+                            <img src="assets/images/product/medium-size/peanuts-1.png" alt="Quality Control">
+                        </div>
+                        <div class="card-content">
+                            <div class="blog-meta">
+                                <span><i class="fa-solid fa-user-tie"></i> Quality Team</span>
+                                <span><i class="fa-solid fa-calendar-days"></i> 18 Jul 2026</span>
+                            </div>
+                            <h3 class="blog-title">Maintaining Purity in Spice Processing</h3>
+                            <p class="blog-short-desc">How our advanced sorting technology ensures 99.9% purity in every bag...</p>
+
+                            <!-- Button with Data Attributes -->
+                            <button type="button" class="btn-read-more open-blog-modal"
+                                data-img="assets/images/product/medium-size/peanuts-1.png"
+                                data-admin="Quality Team"
+                                data-date="18 Jul 2026"
+                                data-title="Maintaining Purity in Spice Processing"
+                                data-short="How our advanced sorting technology ensures 99.9% purity in every bag."
+                                data-long="Quality control is the backbone of the agro-export industry. Adulteration is a major concern for global buyers, which is why Zenvyara utilizes state-of-the-art optical color sorters and magnetic separators. Our automated processing lines remove impurities without compromising the natural essential oils of the spices. This blog explains our step-by-step cleaning process that guarantees 99.9% purity.">
+                                READ MORE <i class="fa-solid fa-arrow-right-long"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Add more blog cards as needed -->
+
                 </div>
             </div>
+        </section>
 
-            <!-- Blog Card 2 -->
-            <div class="zen-blog-card">
-                <div class="card-image-wrap">
-                    <img src="assets/images/product/medium-size/peanuts-1.png" alt="Quality Control">
-                </div>
-                <div class="card-content">
-                    <div class="blog-meta">
-                        <span><i class="fa-solid fa-user-tie"></i> Quality Team</span>
-                        <span><i class="fa-solid fa-calendar-days"></i> 18 Jul 2026</span>
-                    </div>
-                    <h3 class="blog-title">Maintaining Purity in Spice Processing</h3>
-                    <p class="blog-short-desc">How our advanced sorting technology ensures 99.9% purity in every bag...</p>
-
-                    <!-- Button with Data Attributes -->
-                    <button type="button" class="btn-read-more open-blog-modal"
-                        data-img="assets/images/product/medium-size/peanuts-1.png"
-                        data-admin="Quality Team"
-                        data-date="18 Jul 2026"
-                        data-title="Maintaining Purity in Spice Processing"
-                        data-short="How our advanced sorting technology ensures 99.9% purity in every bag."
-                        data-long="Quality control is the backbone of the agro-export industry. Adulteration is a major concern for global buyers, which is why Zenvyara utilizes state-of-the-art optical color sorters and magnetic separators. Our automated processing lines remove impurities without compromising the natural essential oils of the spices. This blog explains our step-by-step cleaning process that guarantees 99.9% purity.">
-                        READ MORE <i class="fa-solid fa-arrow-right-long"></i>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Add more blog cards as needed -->
-
-        </div>
-    </div>
-</section>
-
-<!-- ==========================================
+        <!-- ==========================================
      BLOG POPUP MODAL (Hidden by default)
 =========================================== -->
-<div id="zenBlogModal" class="zen-custom-modal">
-    <div class="zen-modal-content blog-modal-content shadow-lg">
-        <!-- Close Button -->
-        <span class="zen-modal-close" id="closeBlogModal"><i class="fa-solid fa-xmark"></i></span>
+        <div id="zenBlogModal" class="zen-custom-modal">
+            <div class="zen-modal-content blog-modal-content shadow-lg">
+                <!-- Close Button -->
+                <span class="zen-modal-close" id="closeBlogModal"><i class="fa-solid fa-xmark"></i></span>
 
-        <div class="blog-modal-scroll-area">
-            <!-- Modal Hero Image -->
-            <div class="blog-modal-img-wrap mb-4">
-                <img id="blogModalImage" src="" alt="Blog Header">
-            </div>
+                <div class="blog-modal-scroll-area">
+                    <!-- Modal Hero Image -->
+                    <div class="blog-modal-img-wrap mb-4">
+                        <img id="blogModalImage" src="" alt="Blog Header">
+                    </div>
 
-            <!-- Modal Content -->
-            <div class="blog-modal-text-content">
-                <div class="blog-meta mb-3">
-                    <span id="blogModalAdmin" class="meta-item"><i class="fa-solid fa-user-tie"></i> Admin</span>
-                    <span id="blogModalDate" class="meta-item ms-4"><i class="fa-solid fa-calendar-days"></i> Date</span>
+                    <!-- Modal Content -->
+                    <div class="blog-modal-text-content">
+                        <div class="blog-meta mb-3">
+                            <span id="blogModalAdmin" class="meta-item"><i class="fa-solid fa-user-tie"></i> Admin</span>
+                            <span id="blogModalDate" class="meta-item ms-4"><i class="fa-solid fa-calendar-days"></i> Date</span>
+                        </div>
+
+                        <h2 id="blogModalTitle" class="modal-title-custom mb-2"></h2>
+                        <h5 id="blogModalShort" class="modal-short-desc text-muted mb-4"></h5>
+
+                        <div class="divider-line mb-4"></div>
+
+                        <div id="blogModalLong" class="modal-long-desc blog-reading-text"></div>
+                    </div>
                 </div>
-
-                <h2 id="blogModalTitle" class="modal-title-custom mb-2"></h2>
-                <h5 id="blogModalShort" class="modal-short-desc text-muted mb-4"></h5>
-
-                <div class="divider-line mb-4"></div>
-
-                <div id="blogModalLong" class="modal-long-desc blog-reading-text"></div>
             </div>
         </div>
-    </div>
-</div>
         <!-- Begin Footer Area -->
-       <?php include ("./include/footer.php") ?>
+        <?php include("./include/footer.php") ?>
         <!-- Footer Area End Here -->
 
         <!-- Begin Scroll To Top -->
@@ -1007,6 +840,44 @@
 
     <!--Main JS (Common Activation Codes)-->
     <script src="assets/js/main.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Check if Swiper library is loaded
+            if (typeof Swiper !== 'undefined') {
+                var arrivalSlider = new Swiper(".zv-arrival-slider", {
+                    slidesPerView: 1,
+                    spaceBetween: 20,
+                    loop: true,
+                    autoplay: {
+                        delay: 3500,
+                        disableOnInteraction: false,
+                    },
+                    navigation: {
+                        nextEl: ".zv-swiper-btn-next",
+                        prevEl: ".zv-swiper-btn-prev",
+                    },
+                    breakpoints: {
+                        // when window width is >= 576px
+                        576: {
+                            slidesPerView: 2,
+                            spaceBetween: 20
+                        },
+                        // when window width is >= 768px
+                        768: {
+                            slidesPerView: 3,
+                            spaceBetween: 30
+                        },
+                        // when window width is >= 1024px
+                        1024: {
+                            slidesPerView: 4,
+                            spaceBetween: 30
+                        }
+                    }
+                });
+            }
+        });
+    </script>
 
 </body>
 

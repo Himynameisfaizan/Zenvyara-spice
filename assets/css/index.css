@@ -1,0 +1,198 @@
+/* ===================================
+   ZENVYARA CUSTOM PRODUCT GRID
+=================================== */
+
+.zv-pro-card {
+    background: var(--bs-white);
+    border: 1px solid var(--bs-gray-200);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+}
+
+.zv-pro-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.08);
+    border-color: var(--bs-primary);
+    /* Uses your root olive green color */
+}
+
+.zv-img-wrap {
+    padding: 30px 20px;
+    background: #fdfcf9;
+    /* Very subtle warm background for agro products */
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+    border-bottom: 1px solid var(--bs-gray-200);
+}
+
+.zv-img-wrap img {
+    width: 100%;
+    max-width: 180px;
+    height: auto;
+    transition: transform 0.5s ease;
+}
+
+.zv-pro-card:hover .zv-img-wrap img {
+    transform: scale(1.12);
+    /* Smooth zoom effect */
+}
+
+.zv-badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: var(--bs-primary);
+    color: var(--bs-white);
+    padding: 4px 10px;
+    font-size: 11px;
+    font-weight: 600;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    z-index: 2;
+}
+
+.zv-card-body {
+    padding: 25px 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    text-align: center;
+}
+
+.zv-rating {
+    color: #f5b223;
+    /* Warm gold for stars */
+    font-size: 13px;
+    margin-bottom: 12px;
+}
+
+.zv-pro-title {
+    font-family: var(--bs-body-font-family);
+    /* Or 'Playfair Display' if preferred */
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--bs-dark);
+    text-decoration: none;
+    margin-bottom: 8px;
+    transition: color 0.3s ease;
+    line-height: 1.4;
+}
+
+.zv-pro-title:hover {
+    color: var(--bs-primary);
+}
+
+.zv-pro-price {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--bs-primary);
+    margin-bottom: 25px;
+}
+
+.zv-currency {
+    font-size: 16px;
+    margin-right: 2px;
+    font-weight: 600;
+}
+
+.zv-card-footer {
+    margin-top: auto;
+}
+
+.zv-btn-outline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid var(--bs-gray-200);
+    color: var(--bs-gray-700);
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 1px;
+}
+
+.zv-btn-outline i {
+    margin-right: 8px;
+    font-size: 15px;
+}
+
+.zv-pro-card:hover .zv-btn-outline {
+    background: var(--bs-primary);
+    border-color: var(--bs-primary);
+    color: var(--bs-white);
+}
+
+
+/* ===================================
+   ZENVYARA SLIDER FIXES & ARROWS
+=================================== */
+
+/* Container Setup */
+.zv-arrival-slider {
+    padding: 15px 0 !important;
+    overflow: hidden;
+}
+
+.zv-arrival-slider .swiper-slide {
+    height: auto;
+    /* Ensures all cards stretch to same height */
+    display: flex;
+}
+
+/* Custom Stylish Slider Arrows */
+.zv-swiper-btn-next,
+.zv-swiper-btn-prev {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 45px;
+    height: 45px;
+    background-color: var(--bs-white);
+    color: var(--bs-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+    border: 1px solid var(--bs-gray-200);
+}
+
+.zv-swiper-btn-prev {
+    left: -20px;
+}
+
+.zv-swiper-btn-next {
+    right: -20px;
+}
+
+/* Hover Effect for Arrows */
+.zv-swiper-btn-next:hover,
+.zv-swiper-btn-prev:hover {
+    background-color: var(--bs-primary);
+    color: var(--bs-white);
+    border-color: var(--bs-primary);
+}
+
+/* Hide arrows on mobile to save space */
+@media (max-width: 768px) {
+
+    .zv-swiper-btn-next,
+    .zv-swiper-btn-prev {
+        display: none;
+    }
+}
