@@ -6,28 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Template - global export</title>
-    <meta name="robots" content="noindex, follow" />
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.ico" />
-
-    <!-- CSS
-    ============================================ -->
-
-    <!-- Vendor CSS (Contain Bootstrap, Icon Fonts) -->
-    <link rel="stylesheet" href="assets/css/vendor/font-awesome.min.css" />
-    <link rel="stylesheet" href="assets/css/vendor/Pe-icon-7-stroke.css" />
-
-    <!-- Plugin CSS (Global Plugins Files) -->
-    <link rel="stylesheet" href="assets/css/plugins/animate.min.css">
-    <link rel="stylesheet" href="assets/css/plugins/jquery-ui.min.css">
-    <link rel="stylesheet" href="assets/css/plugins/swiper-bundle.min.css">
-    <link rel="stylesheet" href="assets/css/plugins/nice-select.css">
-    <link rel="stylesheet" href="assets/css/plugins/magnific-popup.min.css" />
-
-    <!-- Style CSS -->
-    <link rel="stylesheet" href="assets/css/style.css">
+   
 
 </head>
 
@@ -35,316 +14,7 @@
 
     <div class="main-wrapper">
 
-        <!-- Begin Main Header Area -->
-        <header class="main-header_area position-relative">
-            <div class="header-top border-bottom d-none d-md-block">
-                <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col-6">
-                            <div class="header-top-left">
-                                <ul class="dropdown-wrap text-matterhorn">
-                                    <li class="dropdown">
-                                        <button class="btn btn-link dropdown-toggle ht-btn" type="button" id="languageButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                            English
-                                        </button>
-                                        <ul class="dropdown-menu" aria-labelledby="languageButton">
-                                            <li><a class="dropdown-item" href="#">French</a></li>
-                                            <li><a class="dropdown-item" href="#">Italian</a></li>
-                                            <li><a class="dropdown-item" href="#">Spanish</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="dropdown">
-                                        <button class="btn btn-link dropdown-toggle ht-btn" type="button" id="currencyButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                            USD
-                                        </button>
-                                        <ul class="dropdown-menu" aria-labelledby="currencyButton">
-                                            <li><a class="dropdown-item" href="#">GBP</a></li>
-                                            <li><a class="dropdown-item" href="#">ISO</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        Call Us
-                                        <a href="tel://+917874616897">+91 78746 16897</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="header-top-right text-matterhorn">
-                                <p class="shipping mb-0">Free delivery on order over <span>₹2000</span></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="header-middle py-5">
-                <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col-lg-12">
-                            <div class="header-middle-wrap">
-                                <a href="index.html" class="header-logo">
-                                    <img src="assets/images/logo/dark1.png" alt="Header Logo">
-                                </a>
-                                <div class="header-search-area d-none d-lg-block">
-                                    <form action="#" class="header-searchbox">
-                                        <select class="nice-select select-search-category wide">
-                                            <option value="all">All Category</option>
-                                            <option value="product-item">Product Item</option>
-                                            <option value="product-item-2">Product Item 02</option>
-                                            <option value="product-item-3">Product Item 03</option>
-                                            <option value="product-item-4">Product Item 04</option>
-                                            <option value="product-item-5">Product Item 05</option>
-                                        </select>
-                                        <input class="input-field" type="text" placeholder="Search Products">
-                                        <button class="btn btn-outline-whisper btn-primary-hover" type="submit"><i class="pe-7s-search"></i></button>
-                                    </form>
-                                </div>
-                                <div class="header-right">
-                                    <ul>
-                                        <li class="dropdown d-none d-md-block">
-                                            <button class="btn btn-link dropdown-toggle ht-btn p-0" type="button" id="settingButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="pe-7s-users"></i>
-                                            </button>
-                                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="settingButton">
-                                                <li><a class="dropdown-item" href="#">My account</a></li>
-                                                <li><a class="dropdown-item" href="#">Login | Register</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="d-none d-md-block">
-                                            <a href="wishlist.html">
-                                                <i class="pe-7s-like"></i>
-                                            </a>
-                                        </li>
-                                        <li class="d-block d-lg-none">
-                                            <a href="#searchBar" class="search-btn toolbar-btn">
-                                                <i class="pe-7s-search"></i>
-                                            </a>
-                                        </li>
-                                        <li class="minicart-wrap me-3 me-lg-0">
-                                            <a href="#miniCart" class="minicart-btn toolbar-btn">
-                                                <i class="pe-7s-shopbag"></i>
-                                                <span class="quantity">3</span>
-                                            </a>
-                                        </li>
-                                        <li class="mobile-menu_wrap d-block d-lg-none">
-                                            <a href="#mobileMenu" class="mobile-menu_btn toolbar-btn pl-0">
-                                                <i class="pe-7s-menu"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="main-header header-sticky" data-bg-color="#bac34e">
-                <div class="container">
-                    <div class="main-header_nav position-relative">
-                        <div class="row align-items-center">
-                            <div class="col-lg-12 d-none d-lg-block">
-                                <div class="main-menu">
-                                    <nav class="main-nav">
-                                        <ul>
-                                            <li class="drop-holder">
-                                                <a href="index.php">Home
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">About</a>
-                                            </li>
-                                            <li class="megamenu-holder">
-                                                <a href="#">Product
-                                                </a>
-                                            </li>
-                                            <li class="drop-holder">
-                                                <a href="#">Blogs
-                                                </a>
-                                            </li>
-                                            <li class="drop-holder">
-                                                <a href="#">Certificates
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Contact</a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mobile-menu_wrapper" id="mobileMenu">
-                <div class="harmic-offcanvas-body">
-                    <div class="inner-body">
-                        <div class="harmic-offcanvas-top">
-                            <a href="#" class="button-close"><i class="pe-7s-close"></i></a>
-                        </div>
-                        <div class="offcanvas-user-info text-center px-6 pb-5">
-                            <div class=" text-silver">
-                                <p class="shipping mb-0">Free delivery on order over <span class="text-primary">$200</span></p>
-                            </div>
-                            <ul class="dropdown-wrap justify-content-center text-silver">
-                                <li class="dropdown dropup">
-                                    <button class="btn btn-link dropdown-toggle ht-btn" type="button" id="languageButtonTwo" data-bs-toggle="dropdown" aria-expanded="false">
-                                        English
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="languageButtonTwo">
-                                        <li><a class="dropdown-item" href="#">French</a></li>
-                                        <li><a class="dropdown-item" href="#">Italian</a></li>
-                                        <li><a class="dropdown-item" href="#">Spanish</a></li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown dropup">
-                                    <button class="btn btn-link dropdown-toggle ht-btn usd-dropdown" type="button" id="currencyButtonTwo" data-bs-toggle="dropdown" aria-expanded="false">
-                                        USD
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="currencyButtonTwo">
-                                        <li><a class="dropdown-item" href="#">GBP</a></li>
-                                        <li><a class="dropdown-item" href="#">ISO</a></li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown dropup">
-                                    <button class="btn btn-link dropdown-toggle ht-btn p-0" type="button" id="settingButtonTwo" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="pe-7s-users"></i>
-                                    </button>
-                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="settingButtonTwo">
-                                        <li><a class="dropdown-item" href="#">My account</a></li>
-                                        <li><a class="dropdown-item" href="#">Login | Register</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="pe-7s-like"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="offcanvas-menu_area">
-                            <nav class="offcanvas-navigation">
-                                <ul class="mobile-menu">
-                                    <li class="menu-item-has-children">
-                                        <a href="index.php">
-                                            <span class="mm-text">Home
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <span class="mm-text">About Us</span>
-                                        </a>
-                                    </li>
-                                    <li class="menu-item-has-children">
-                                        <a href="#">
-                                            <span class="mm-text">Product
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="menu-item-has-children">
-                                        <a href="#">
-                                            <span class="mm-text">Blog
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="menu-item-has-children">
-                                        <a href="#">
-                                            <span class="mm-text">Certificate
-                                            </span>
-                                        </a>
-                                    </li>
-                                </ul>
-                                </li>
-                                <li class="menu-item-has-children">
-                                    <a href="#">
-                                        <span class="mm-text">Contact
-                                        </span>
-                                    </a>
-                                </li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="offcanvas-search_wrapper" id="searchBar">
-                <div class="harmic-offcanvas-body">
-                    <div class="container h-100">
-                        <div class="offcanvas-search">
-                            <div class="harmic-offcanvas-top">
-                                <a href="#" class="button-close"><i class="pe-7s-close"></i></a>
-                            </div>
-                            <span class="searchbox-info">Start typing and press Enter to search</span>
-                            <form action="#" class="hm-searchbox">
-                                <input type="text" placeholder="Search">
-                                <button class="search-btn" type="submit"><i class="pe-7s-search"></i></button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="offcanvas-minicart_wrapper" id="miniCart">
-                <div class="harmic-offcanvas-body">
-                    <div class="minicart-content">
-                        <div class="minicart-heading">
-                            <h4 class="mb-0">Shopping Cart</h4>
-                            <a href="#" class="button-close"><i class="pe-7s-close"></i></a>
-                        </div>
-                        <ul class="minicart-list">
-                            <li class="minicart-product">
-                                <a class="product-item_remove" href="#"><i
-                                        class="pe-7s-close"></i></a>
-                                <a href="#" class="product-item_img">
-                                    <img class="img-full" src="assets/images/product/small-size/1-1-112x124.jpg" alt="Product Image">
-                                </a>
-                                <div class="product-item_content">
-                                    <a class="product-item_title" href="#">Black Pepper Grains</a>
-                                    <span class="product-item_quantity">1 x $80.00</span>
-                                </div>
-                            </li>
-                            <li class="minicart-product">
-                                <a class="product-item_remove" href="#"><i
-                                        class="pe-7s-close"></i></a>
-                                <a href="#" class="product-item_img">
-                                    <img class="img-full" src="assets/images/product/small-size/1-2-112x124.jpg" alt="Product Image">
-                                </a>
-                                <div class="product-item_content">
-                                    <a class="product-item_title" href="#">Peanut Big Bean</a>
-                                    <span class="product-item_quantity">1 x $80.00</span>
-                                </div>
-                            </li>
-                            <li class="minicart-product">
-                                <a class="product-item_remove" href="#">
-                                    <i class="pe-7s-close"></i>
-                                </a>
-                                <a href="#" class="product-item_img">
-                                    <img class="img-full" src="assets/images/product/small-size/1-3-112x124.jpg" alt="Product Image">
-                                </a>
-                                <div class="product-item_content">
-                                    <a class="product-item_title" href="#">Dried Lemon Green</a>
-                                    <span class="product-item_quantity">1 x $80.00</span>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="minicart-item_total">
-                        <span>Subtotal</span>
-                        <span class="ammount">$240.00</span>
-                    </div>
-                    <div class="group-btn_wrap d-grid gap-2">
-                        <a href="cart.html" class="btn btn-secondary btn-primary-hover">View Cart</a>
-                        <a href="checkout.html" class="btn btn-secondary btn-primary-hover">Checkout</a>
-                    </div>
-                </div>
-            </div>
-            <div class="global-overlay"></div>
-        </header>
-        <!-- Main Header Area End Here -->
+      <?php include ("./include/header.php") ?>
 
         <!-- Begin Slider Area -->
         <div class="slider-area">
@@ -1204,232 +874,106 @@
         </div>
         <!-- Product Area End Here -->
 
-        <!-- Begin Blog Area -->
-        <div class="blog-area section-space-y-axis-100">
-            <div class="container">
-                <div class="section-title text-center pb-55">
-                    <span class="sub-title text-primary">Read Our</span>
-                    <h2 class="title mb-0">Latest Blog</h2>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="swiper-container blog-slider">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <div class="blog-item">
-                                        <div class="blog-img img-zoom-effect">
-                                            <a href="#">
-                                                <img class="img-full" src="assets/images/product/medium-size/fennel.png" alt="Blog Image">
-                                            </a>
-                                        </div>
-                                        <div class="blog-content">
-                                            <div class="blog-meta text-dim-gray pb-3">
-                                                <ul>
-                                                    <li class="date"><i class="fa fa-calendar-o me-2"></i>May 21, 2021</li>
-                                                    <li>
-                                                        <span class="comments me-3">
-                                                            <a href="javascript:void(0)">2 Comments</a>
-                                                        </span>
-                                                        <span class="link-share">
-                                                            <a href="javascript:void(0)">Share</a>
-                                                        </span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <h5 class="title mb-4">
-                                                <a href="#">Lorem ipsum dolor consec adipisicing elit</a>
-                                            </h5>
-                                            <p class="short-desc mb-5">Lorem ipsum dolor sit amet, consectet adipi elit, sed do eius tempor incididunt ut labore gthydolore magna aliqua.</p>
-                                            <div class="button-wrap">
-                                                <a class="btn btn-custom-size btn-dark btn-lg rounded-0" href="#">Read More</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="blog-item">
-                                        <div class="blog-img img-zoom-effect">
-                                            <a href="#">
-                                                <img class="img-full" src="assets/images/product/medium-size/moringa.png" alt="Blog Image">
-                                            </a>
-                                        </div>
-                                        <div class="blog-content">
-                                            <div class="blog-meta text-dim-gray pb-3">
-                                                <ul>
-                                                    <li class="date"><i class="fa fa-calendar-o me-2"></i>May 21, 2021</li>
-                                                    <li>
-                                                        <span class="comments me-3">
-                                                            <a href="javascript:void(0)">2 Comments</a>
-                                                        </span>
-                                                        <span class="link-share">
-                                                            <a href="javascript:void(0)">Share</a>
-                                                        </span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <h5 class="title mb-4">
-                                                <a href="#">Voluptate minus temporibus nostrum adipi</a>
-                                            </h5>
-                                            <p class="short-desc mb-5">Lorem ipsum dolor sit amet, consectet adipi elit, sed do eius tempor incididunt ut labore gthydolore magna aliqua.</p>
-                                            <div class="button-wrap">
-                                                <a class="btn btn-custom-size btn-dark btn-lg rounded-0" href="#">Read More</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="blog-item">
-                                        <div class="blog-img img-zoom-effect">
-                                            <a href="#">
-                                                <img class="img-full" src="assets/images/product/medium-size/peanuts.png" alt="Blog Image">
-                                            </a>
-                                        </div>
-                                        <div class="blog-content">
-                                            <div class="blog-meta text-dim-gray pb-3">
-                                                <ul>
-                                                    <li class="date"><i class="fa fa-calendar-o me-2"></i>May 21, 2021</li>
-                                                    <li>
-                                                        <span class="comments me-3">
-                                                            <a href="javascript:void(0)">2 Comments</a>
-                                                        </span>
-                                                        <span class="link-share">
-                                                            <a href="javascript:void(0)">Share</a>
-                                                        </span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <h5 class="title mb-4">
-                                                <a href="#">Corporis tempora molestiae nulla esse ipsam</a>
-                                            </h5>
-                                            <p class="short-desc mb-5">Lorem ipsum dolor sit amet, consectet adipi elit, sed do eius tempor incididunt ut labore gthydolore magna aliqua.</p>
-                                            <div class="button-wrap">
-                                                <a class="btn btn-custom-size btn-dark btn-lg rounded-0" href="#">Read More</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Add Arrows -->
-                            <div class="swiper-button-next"></div>
-                            <div class="swiper-button-prev"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      <section class="blog-section section-padding reveal">
+    <div class="container">
+        <div class="section-title-wrap text-center mb-5">
+            <span class="sub-title">Latest Updates</span>
+            <h2 class="section-title">Industry News & Blogs</h2>
         </div>
-        <!-- Blog Area End Here -->
 
-        <!-- Begin Footer Area -->
-        <div class="footer-area">
-            <div class="footer-top section-space-y-axis-100 text-black" data-bg-color="#e5ddcc">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-3 col-md-6">
-                            <div class="widget-item">
-                                <div class="footer-logo pb-4">
-                                    <a href="index.html">
-                                        <img src="assets/images/logo/dark1.png" alt="Logo">
-                                    </a>
-                                </div>
-                                <p class="short-desc mb-2">Lorem ipsum dolor sit amet, consectet adipi elit, sed do eius tempor incididun ut labore gthydolore. </p>
-                                <div class="widget-contact-info pb-6">
-                                    <ul>
-                                        <li>
-                                            <i class="pe-7s-map-marker"></i>
-                                            184 Main Rd E, St Albans VIC 3021,
-                                        </li>
-                                        <li>
-                                            <i class="pe-7s-mail"></i>
-                                            <a href="mailto://info@example.com">info@example.com</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="payment-method">
-                                    <a href="javascript:void(0)">
-                                        <img src="assets/images/payment/1.png" alt="Payment Method">
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-2 offset-lg-1 col-md-6 pt-10 pt-lg-0">
-                            <div class="widget-item">
-                                <h3 class="widget-title mb-5">Information</h3>
-                                <ul class="widget-list-item">
-                                    <li>
-                                        <a href="javascript:void(0)">FAQ</a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0)">Shipping</a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0)">Returns</a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0)">Order Status</a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0)">Gift Card Balance</a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0)">Accessibility</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-lg-2 offset-lg-1 col-md-6 pt-10 pt-lg-0">
-                            <div class="widget-item">
-                                <h3 class="widget-title mb-5">My Account</h3>
-                                <ul class="widget-list-item">
-                                    <li>
-                                        <a href="javascript:void(0)">My Account</a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0)">Checkout</a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0)">Validation</a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0)">Wishlist</a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0)">Terms of Use</a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0)">FAQ</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 pt-10 pt-lg-0">
-                            <div class="widget-item">
-                                <h3 class="widget-title mb-5">Newsletters</h3>
-                                <p class="short-desc">Lorem ipsum dolor sit amet, consectet adipi elit, sed do eius tempor.</p>
-                            </div>
-                            <div class="widget-form-area">
-                                <form class="widget-form" action="#">
-                                    <input class="input-field" type="email" autocomplete="off" placeholder="Your Email">
-                                    <div class="button-wrap pt-5">
-                                        <button class="btn btn-custom-size btn-primary btn-secondary-hover rounded-0" id="mc-submit">Send Mail</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
+        <div class="blog-grid-wrapper">
+
+            <!-- Blog Card 1 -->
+            <div class="zen-blog-card">
+                <div class="card-image-wrap">
+                    <img src="assets/images/product/medium-size/moringa.png" alt="Spice Export Trends">
+                </div>
+                <div class="card-content">
+                    <div class="blog-meta">
+                        <span><i class="fa-solid fa-user-tie"></i> Zenvyara Admin</span>
+                        <span><i class="fa-solid fa-calendar-days"></i> 23 Jul 2026</span>
                     </div>
+                    <h3 class="blog-title">Global Spice Export Trends in 2026</h3>
+                    <p class="blog-short-desc">Discover the rising demand for organic spices in the European market...</p>
+
+                    <!-- Button with Data Attributes -->
+                    <button type="button" class="btn-read-more open-blog-modal"
+                        data-img="assets/images/product/medium-size/moringa.png"
+                        data-admin="Zenvyara Admin"
+                        data-date="23 Jul 2026"
+                        data-title="Global Spice Export Trends in 2026"
+                        data-short="Discover the rising demand for organic spices in the European market and how exporters are adapting."
+                        data-long="The international spice trade has seen a massive shift towards organic and ethically sourced products. In 2026, European and North American buyers are prioritizing transparency in the supply chain. At Zenvyara, we have adapted to these trends by implementing strict quality control and direct-to-farm procurement strategies. This ensures that every batch we export meets the highest global standards, giving our clients a competitive edge in their local markets.">
+                        READ MORE <i class="fa-solid fa-arrow-right-long"></i>
+                    </button>
                 </div>
             </div>
-            <div class="footer-bottom py-3" data-bg-color="#bac34e">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="copyright">
-                                <span class="copyright-text text-white">© 2022 Zenvyara Made with <i class="fa fa-heart text-danger"></i> by <a href="https://digitalwebtrackers.com/" target="_blank">Digital Web tracker</a> </span>
-                            </div>
-                        </div>
-                    </div>
+
+            <!-- Blog Card 2 -->
+            <div class="zen-blog-card">
+                <div class="card-image-wrap">
+                    <img src="assets/images/product/medium-size/peanuts-1.png" alt="Quality Control">
                 </div>
+                <div class="card-content">
+                    <div class="blog-meta">
+                        <span><i class="fa-solid fa-user-tie"></i> Quality Team</span>
+                        <span><i class="fa-solid fa-calendar-days"></i> 18 Jul 2026</span>
+                    </div>
+                    <h3 class="blog-title">Maintaining Purity in Spice Processing</h3>
+                    <p class="blog-short-desc">How our advanced sorting technology ensures 99.9% purity in every bag...</p>
+
+                    <!-- Button with Data Attributes -->
+                    <button type="button" class="btn-read-more open-blog-modal"
+                        data-img="assets/images/product/medium-size/peanuts-1.png"
+                        data-admin="Quality Team"
+                        data-date="18 Jul 2026"
+                        data-title="Maintaining Purity in Spice Processing"
+                        data-short="How our advanced sorting technology ensures 99.9% purity in every bag."
+                        data-long="Quality control is the backbone of the agro-export industry. Adulteration is a major concern for global buyers, which is why Zenvyara utilizes state-of-the-art optical color sorters and magnetic separators. Our automated processing lines remove impurities without compromising the natural essential oils of the spices. This blog explains our step-by-step cleaning process that guarantees 99.9% purity.">
+                        READ MORE <i class="fa-solid fa-arrow-right-long"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Add more blog cards as needed -->
+
+        </div>
+    </div>
+</section>
+
+<!-- ==========================================
+     BLOG POPUP MODAL (Hidden by default)
+=========================================== -->
+<div id="zenBlogModal" class="zen-custom-modal">
+    <div class="zen-modal-content blog-modal-content shadow-lg">
+        <!-- Close Button -->
+        <span class="zen-modal-close" id="closeBlogModal"><i class="fa-solid fa-xmark"></i></span>
+
+        <div class="blog-modal-scroll-area">
+            <!-- Modal Hero Image -->
+            <div class="blog-modal-img-wrap mb-4">
+                <img id="blogModalImage" src="" alt="Blog Header">
+            </div>
+
+            <!-- Modal Content -->
+            <div class="blog-modal-text-content">
+                <div class="blog-meta mb-3">
+                    <span id="blogModalAdmin" class="meta-item"><i class="fa-solid fa-user-tie"></i> Admin</span>
+                    <span id="blogModalDate" class="meta-item ms-4"><i class="fa-solid fa-calendar-days"></i> Date</span>
+                </div>
+
+                <h2 id="blogModalTitle" class="modal-title-custom mb-2"></h2>
+                <h5 id="blogModalShort" class="modal-short-desc text-muted mb-4"></h5>
+
+                <div class="divider-line mb-4"></div>
+
+                <div id="blogModalLong" class="modal-long-desc blog-reading-text"></div>
             </div>
         </div>
+    </div>
+</div>
+        <!-- Begin Footer Area -->
+       <?php include ("./include/footer.php") ?>
         <!-- Footer Area End Here -->
 
         <!-- Begin Scroll To Top -->
