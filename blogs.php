@@ -1,11 +1,13 @@
 <?php
 $pageTitle = "Blogs";
 
+include("./admin/db-conn.php");
 include("./include/header.php");
 include("./include/breadcrumb.php");
 
+$blogQuery = "SELECT * FROM blogs WHERE status = 'published' ORDER BY created_at DESC";
+$resultBlog = $conn->query($blogQuery); 
 ?>
-
 
 <!-- ==========================================
      BLOG GRID SECTION
@@ -19,59 +21,62 @@ include("./include/breadcrumb.php");
 
         <div class="blog-grid-wrapper">
 
-            <!-- Blog Card 1 -->
-            <div class="zen-blog-card">
-                <div class="card-image-wrap">
-                    <img src="assets/images/product/medium-size/moringa.png" alt="Spice Export Trends">
-                </div>
-                <div class="card-content">
-                    <div class="blog-meta">
-                        <span><i class="fa-solid fa-user-tie"></i> Zenvyara Admin</span>
-                        <span><i class="fa-solid fa-calendar-days"></i> 23 Jul 2026</span>
+            <?php
+            if (isset($resultBlog) && $resultBlog->num_rows > 0) {
+                while ($row = $resultBlog->fetch_assoc()) {
+                    
+                    // 1. Basic Data Fetching & Sanitization
+                    $b_id = $row['id'];
+                    $b_title = htmlspecialchars($row['title'], ENT_QUOTES, 'UTF-8');
+                    $b_author = !empty($row['author']) ? htmlspecialchars($row['author'], ENT_QUOTES, 'UTF-8') : "Admin";
+                    $b_date = date('d M Y', strtotime($row['created_at']));
+                    
+                    // 2. Image Path (Checking if image exists)
+                    $b_img = !empty($row['image']) ? "admin/assets/img/uploads/" . htmlspecialchars($row['image'], ENT_QUOTES, 'UTF-8') : "assets/images/product/medium-size/default-blog.png";
+
+                    // 3. Content Handling (Short for Card, Long for Modal)
+                    $raw_content = html_entity_decode($row['content']); // DB se HTML decode kiya
+                    
+                    // Short description (Tags hatakar sirf 120 characters dikhana)
+                    $clean_text = strip_tags($raw_content);
+                    $short_desc = mb_strlen($clean_text) > 120 ? mb_substr($clean_text, 0, 120) . "..." : $clean_text;
+                    
+                    // 4. Safe Attributes for JavaScript (Sabse zaruri step popup ke liye)
+                    $safe_short_desc = htmlspecialchars($short_desc, ENT_QUOTES, 'UTF-8');
+                    $safe_long_desc = htmlspecialchars($raw_content, ENT_QUOTES, 'UTF-8'); // Pura HTML pass kar rahe hain
+            ?>
+                    <!-- Dynamic Blog Card -->
+                    <div class="zen-blog-card">
+                        <div class="card-image-wrap">
+                            <img src="<?php echo $b_img; ?>" alt="<?php echo $b_title; ?>">
+                        </div>
+                        <div class="card-content">
+                            <div class="blog-meta">
+                                <span><i class="fa-solid fa-user-tie"></i> <?php echo $b_author; ?></span>
+                                <span><i class="fa-solid fa-calendar-days"></i> <?php echo $b_date; ?></span>
+                            </div>
+                            
+                            <h3 class="blog-title"><?php echo $b_title; ?></h3>
+                            <p class="blog-short-desc"><?php echo $short_desc; ?></p>
+
+                            <!-- Button with Safe Data Attributes -->
+                            <button type="button" class="btn-read-more open-blog-modal"
+                                data-img="<?php echo $b_img; ?>"
+                                data-admin="<?php echo $b_author; ?>"
+                                data-date="<?php echo $b_date; ?>"
+                                data-title="<?php echo $b_title; ?>"
+                                data-short="<?php echo $safe_short_desc; ?>"
+                                data-long="<?php echo $safe_long_desc; ?>">
+                                READ MORE <i class="fa-solid fa-arrow-right-long"></i>
+                            </button>
+                        </div>
                     </div>
-                    <h3 class="blog-title">Global Spice Export Trends in 2026</h3>
-                    <p class="blog-short-desc">Discover the rising demand for organic spices in the European market...</p>
-
-                    <!-- Button with Data Attributes -->
-                    <button type="button" class="btn-read-more open-blog-modal"
-                        data-img="assets/images/product/medium-size/moringa.png"
-                        data-admin="Zenvyara Admin"
-                        data-date="23 Jul 2026"
-                        data-title="Global Spice Export Trends in 2026"
-                        data-short="Discover the rising demand for organic spices in the European market and how exporters are adapting."
-                        data-long="The international spice trade has seen a massive shift towards organic and ethically sourced products. In 2026, European and North American buyers are prioritizing transparency in the supply chain. At Zenvyara, we have adapted to these trends by implementing strict quality control and direct-to-farm procurement strategies. This ensures that every batch we export meets the highest global standards, giving our clients a competitive edge in their local markets.">
-                        READ MORE <i class="fa-solid fa-arrow-right-long"></i>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Blog Card 2 -->
-            <div class="zen-blog-card">
-                <div class="card-image-wrap">
-                    <img src="assets/images/product/medium-size/peanuts-1.png" alt="Quality Control">
-                </div>
-                <div class="card-content">
-                    <div class="blog-meta">
-                        <span><i class="fa-solid fa-user-tie"></i> Quality Team</span>
-                        <span><i class="fa-solid fa-calendar-days"></i> 18 Jul 2026</span>
-                    </div>
-                    <h3 class="blog-title">Maintaining Purity in Spice Processing</h3>
-                    <p class="blog-short-desc">How our advanced sorting technology ensures 99.9% purity in every bag...</p>
-
-                    <!-- Button with Data Attributes -->
-                    <button type="button" class="btn-read-more open-blog-modal"
-                        data-img="assets/images/product/medium-size/peanuts-1.png"
-                        data-admin="Quality Team"
-                        data-date="18 Jul 2026"
-                        data-title="Maintaining Purity in Spice Processing"
-                        data-short="How our advanced sorting technology ensures 99.9% purity in every bag."
-                        data-long="Quality control is the backbone of the agro-export industry. Adulteration is a major concern for global buyers, which is why Zenvyara utilizes state-of-the-art optical color sorters and magnetic separators. Our automated processing lines remove impurities without compromising the natural essential oils of the spices. This blog explains our step-by-step cleaning process that guarantees 99.9% purity.">
-                        READ MORE <i class="fa-solid fa-arrow-right-long"></i>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Add more blog cards as needed -->
+            <?php 
+                }
+            } else {
+                echo "<div class='col-12 text-center py-5'><h4>No blogs published yet.</h4></div>";
+            }
+            ?>
 
         </div>
     </div>
@@ -99,16 +104,17 @@ include("./include/breadcrumb.php");
                 </div>
 
                 <h2 id="blogModalTitle" class="modal-title-custom mb-2"></h2>
-                <h5 id="blogModalShort" class="modal-short-desc text-muted mb-4"></h5>
+                <!-- Short description tagal diya modal se kyunki long mein sab include ho jayega -->
+                <h5 id="blogModalShort" class="modal-short-desc text-muted mb-4 d-none"></h5>
 
                 <div class="divider-line mb-4"></div>
 
+                <!-- Long description render point -->
                 <div id="blogModalLong" class="modal-long-desc blog-reading-text"></div>
             </div>
         </div>
     </div>
 </div>
-
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
@@ -121,7 +127,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const modalAdmin = document.getElementById("blogModalAdmin");
     const modalDate = document.getElementById("blogModalDate");
     const modalTitle = document.getElementById("blogModalTitle");
-    const modalShort = document.getElementById("blogModalShort");
     const modalLong = document.getElementById("blogModalLong");
 
     // Open Modal Logic
@@ -132,7 +137,6 @@ document.addEventListener("DOMContentLoaded", function() {
             const adminText = this.getAttribute("data-admin");
             const dateText = this.getAttribute("data-date");
             const titleText = this.getAttribute("data-title");
-            const shortText = this.getAttribute("data-short");
             const longText = this.getAttribute("data-long");
 
             // Populate Modal
@@ -140,9 +144,8 @@ document.addEventListener("DOMContentLoaded", function() {
             modalAdmin.innerHTML = `<i class="fa-solid fa-user-tie"></i> ${adminText}`;
             modalDate.innerHTML = `<i class="fa-solid fa-calendar-days"></i> ${dateText}`;
             modalTitle.innerText = titleText;
-            modalShort.innerText = shortText;
             
-            // Using innerHTML for long text in case you want to pass <br> or <p> tags later from DB
+            // IMPORTANT: Using innerHTML properly decodes the safe HTML string back to readable <p> tags
             modalLong.innerHTML = longText; 
 
             // Show Modal & Disable Body Scroll

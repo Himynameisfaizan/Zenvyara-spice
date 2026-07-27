@@ -2,23 +2,20 @@
 
 include("./admin/db-conn.php");
 
-$sql = "SELECT * FROM `products` LIMIT 4";
-$sqlArr = "SELECT * FROM `products` order by id LIMIT 6;";
+$sql = "SELECT p.*, c.categories AS category_name 
+        FROM products p
+        LEFT JOIN categories c ON p.pro_cate = c.cate_id 
+        WHERE p.status = 1 
+        ORDER BY p.pro_id DESC LIMIT 4";
+$sqlArr = "SELECT * FROM `products` order by id LIMIT 4;";
+$sqlBlog = "SELECT * FROM blogs WHERE status = 'published' LIMIT 3";
+$sqlCate = "SELECT * FROM `categories` where status = 1 ORDER BY id desc";
 $result = $conn->query($sql);
 $resultArr = $conn->query($sqlArr);
+$resultBlog = $conn->query($sqlBlog);
+$resultCate = $conn->query($sqlCate);
 ?>
 
-<!DOCTYPE html>
-<html lang="zxx">
-
-<head>
-
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Template - global export</title>
-
-
-</head>
 
 <body>
 
@@ -167,153 +164,179 @@ $resultArr = $conn->query($sqlArr);
         <!-- Shipping Area End Here -->
 
         <!-- Begin Product Area -->
-        <div class="product-area section-space-top-100 py-5 bg-light my-10">
+        <div class="product-area section-space-top-100 py-5 bg-light my-10 reveal">
             <div class="container">
+
+                <div class="section-title text-center pb-4 mb-3">
+                    <span class="sub-title text-primary" style="color: var(--bs-primary); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">Our Collection</span>
+                    <h2 class="title mb-0" style="font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 700;">Explore By Category</h2>
+                </div>
+
                 <div class="row">
                     <div class="col-lg-12">
-                        <!-- Styled Tabs -->
-                        <ul class="nav product-tab-nav py-10 d-flex justify-content-center gap-3 border-0" id="myTab" role="tablist">
+
+                        <?php
+                        // 1. Fetch All Active Categories for Tabs
+                        $sqlCategories = "SELECT * FROM categories WHERE status = 1 ORDER BY id ASC";
+                        $resultCategories = $conn->query($sqlCategories);
+
+                        $categoriesArray = [];
+                        if (isset($resultCategories) && $resultCategories->num_rows > 0) {
+                            while ($catRow = $resultCategories->fetch_assoc()) {
+                                $categoriesArray[] = $catRow;
+                            }
+                        }
+                        ?>
+
+                        <!-- Dynamic Styled Tabs -->
+                        <ul class="nav product-tab-nav pb-5 d-flex justify-content-center gap-3 border-0" id="myTab" role="tablist">
+                            <!-- Default 'All Items' Tab -->
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link active custom-tab" id="all-items-tab" data-bs-toggle="tab" href="#all-items" role="tab">
-                                    <span class="d-block mb-2"><img src="assets/images/product/icon/1.png" alt="Icon" width="30"></span>
+                                <button class="nav-link active custom-tab" id="all-items-tab" data-bs-toggle="tab" data-bs-target="#all-items" type="button" role="tab">
+                                    <span class="d-block mb-2"><i class="fa-solid fa-layer-group fs-4"></i></span>
                                     All Items
-                                </a>
+                                </button>
                             </li>
-                            <li class="nav-item" role="presentation">
-                                <a class="nav-link custom-tab" id="seeds-tab" data-bs-toggle="tab" href="#all-items" role="tab">
-                                    <span class="d-block mb-2"><img src="assets/images/product/icon/ajwain.png" alt="Icon" width="30"></span>
-                                    Seeds & Spices
-                                </a>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <a class="nav-link custom-tab" id="powders-tab" data-bs-toggle="tab" href="#all-items" role="tab">
-                                    <span class="d-block mb-2"><img src="assets/images/product/icon/fennel.png" alt="Icon" width="30"></span>
-                                    Powders
-                                </a>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <a class="nav-link custom-tab" id="herbs-tab" data-bs-toggle="tab" href="#all-items" role="tab">
-                                    <span class="d-block mb-2"><img src="assets/images/product/icon/moringa.png" alt="Icon" width="30"></span>
-                                    Herbs & Leaves
-                                </a>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <a class="nav-link custom-tab" id="nuts-tab" data-bs-toggle="tab" href="#all-items" role="tab">
-                                    <span class="d-block mb-2"><img src="assets/images/product/icon/peanuts.png" alt="Icon" width="30"></span>
-                                    Nuts & Grains
-                                </a>
-                            </li>
+
+                            <!-- Dynamic Category Tabs -->
+                            <?php foreach ($categoriesArray as $cat) {
+                                $catId = $cat['cate_id'];
+                                $catName = htmlspecialchars($cat['categories'], ENT_QUOTES, 'UTF-8');
+                                // Category Icon/Image Logic
+                                $catImg = !empty($cat['image']) ? "admin/uploads/category/" . htmlspecialchars($cat['image']) : "assets/images/product/icon/1.png";
+                            ?>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link custom-tab" id="tab-<?php echo $catId; ?>" data-bs-toggle="tab" data-bs-target="#pane-<?php echo $catId; ?>" type="button" role="tab">
+                                        <span class="d-block mb-2">
+                                            <!-- Agar icon database mein hai toh img use karein, warna fallback -->
+                                            <img src="<?php echo $catImg; ?>" alt="Icon" width="30" style="height:30px; object-fit:contain;">
+                                        </span>
+                                        <?php echo $catName; ?>
+                                    </button>
+                                </li>
+                            <?php } ?>
                         </ul>
 
-                        <!-- Product Grid -->
+                        <!-- Product Grids (Tab Contents) -->
                         <div class="tab-content" id="myTabContent">
+
+                            <!-- 1. All Items Pane (Shows Latest Products from all categories) -->
                             <div class="tab-pane fade show active" id="all-items" role="tabpanel">
                                 <div class="row g-4 zv-product-grid">
-
-                                    <!-- Product Item 1 -->
                                     <?php
-                                    if ($result && $result->num_rows > 0) {
-                                        while ($row = $result->fetch_assoc()) {
+                                    $sqlAll = "SELECT p.*, c.categories AS category_name FROM products p LEFT JOIN categories c ON p.pro_cate = c.cate_id WHERE p.status = 1 ORDER BY p.id DESC LIMIT 8";
+                                    $resultAll = $conn->query($sqlAll);
+
+                                    if (isset($resultAll) && $resultAll->num_rows > 0) {
+                                        while ($row = $resultAll->fetch_assoc()) {
+                                            $pro_id = $row['id'];
+                                            $pro_name = htmlspecialchars($row['pro_name'], ENT_QUOTES, 'UTF-8');
+                                            $category = !empty($row['category_name']) ? htmlspecialchars($row['category_name'], ENT_QUOTES, 'UTF-8') : "Agro Products";
+                                            $selling_price = number_format($row['selling_price'], 2);
+                                            $img_path = !empty($row['pro_img']) ? "admin/assets/img/uploads/" . htmlspecialchars($row['pro_img']) : "assets/images/product/medium-size/default.png";
                                     ?>
                                             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
                                                 <div class="zv-pro-card">
                                                     <div class="zv-img-wrap">
                                                         <span class="zv-badge">Export Quality</span>
-                                                        <a href="#">
-                                                            <img src="assets/images/product/medium-size/moringa.png" alt="Moringa Powder">
+                                                        <a href="product-details.php?id=<?php echo $pro_id; ?>">
+                                                            <img src="<?php echo $img_path; ?>" alt="<?php echo $pro_name; ?>">
                                                         </a>
                                                     </div>
                                                     <div class="zv-card-body">
+                                                        <!-- Category Text Added Here -->
+                                                        <div class="zv-pro-category"><?php echo $category; ?></div>
                                                         <div class="zv-rating">
-                                                            <i class="fa-solid fa-star"></i>
-                                                            <i class="fa-solid fa-star"></i>
-                                                            <i class="fa-solid fa-star"></i>
-                                                            <i class="fa-solid fa-star"></i>
-                                                            <i class="fa-solid fa-star"></i>
+                                                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                                                         </div>
-                                                        <a href="#" class="zv-pro-title"><?php echo $row["pro_name"]; ?></a>
+                                                        <a href="product-details.php?id=<?php echo $pro_id; ?>" class="zv-pro-title"><?php echo $pro_name; ?></a>
                                                         <div class="zv-pro-price">
-                                                            <span class="zv-currency">₹</span>80.00
+                                                            <span class="zv-currency">₹</span><?php echo $selling_price; ?>
                                                         </div>
                                                         <div class="zv-card-footer">
-                                                            <a href="#" class="zv-btn-outline"><i class="fa-solid fa-eye"></i> View Details</a>
+                                                            <a href="product-details.php?id=<?php echo $pro_id; ?>" class="zv-btn-outline"><i class="fa-solid fa-eye"></i> View Details</a>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                    <?php }
-                                    } ?>
-
-
+                                    <?php
+                                        }
+                                    } else {
+                                        echo "<div class='col-12 text-center'>No products found.</div>";
+                                    }
+                                    ?>
                                 </div>
                             </div>
+
+                            <!-- 2. Dynamic Category Panes -->
+                            <?php foreach ($categoriesArray as $cat) {
+                                $catId = $cat['cate_id'];
+                                $catName = htmlspecialchars($cat['categories'], ENT_QUOTES, 'UTF-8');
+                            ?>
+                                <div class="tab-pane fade" id="pane-<?php echo $catId; ?>" role="tabpanel">
+                                    <div class="row g-4 zv-product-grid">
+                                        <?php
+                                        // Fetch products specifically for this category tab
+                                        $sqlCatProd = "SELECT p.*, c.categories AS category_name FROM products p LEFT JOIN categories c ON p.pro_cate = c.cate_id WHERE p.pro_cate = $catId AND p.status = 1 ORDER BY p.id DESC LIMIT 8";
+                                        $resultCatProd = $conn->query($sqlCatProd);
+
+                                        if (isset($resultCatProd) && $resultCatProd->num_rows > 0) {
+                                            while ($row = $resultCatProd->fetch_assoc()) {
+                                                $pro_id = $row['id'];
+                                                $pro_name = htmlspecialchars($row['pro_name'], ENT_QUOTES, 'UTF-8');
+                                                $selling_price = number_format($row['selling_price'], 2);
+                                                $img_path = !empty($row['pro_img']) ? "admin/assets/img/uploads/" . htmlspecialchars($row['pro_img']) : "assets/images/product/medium-size/default.png";
+                                        ?>
+                                                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
+                                                    <div class="zv-pro-card">
+                                                        <div class="zv-img-wrap">
+                                                            <span class="zv-badge">Export Quality</span>
+                                                            <a href="product-details.php?id=<?php echo $pro_id; ?>">
+                                                                <img src="<?php echo $img_path; ?>" alt="<?php echo $pro_name; ?>">
+                                                            </a>
+                                                        </div>
+                                                        <div class="zv-card-body">
+                                                            <!-- Category Text Added Here -->
+                                                            <div class="zv-pro-category"><?php echo $catName; ?></div>
+                                                            <div class="zv-rating">
+                                                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                                            </div>
+                                                            <a href="product-details.php?id=<?php echo $pro_id; ?>" class="zv-pro-title"><?php echo $pro_name; ?></a>
+                                                            <div class="zv-pro-price">
+                                                                <span class="zv-currency">₹</span><?php echo $selling_price; ?>
+                                                            </div>
+                                                            <div class="zv-card-footer">
+                                                                <a href="product-details.php?id=<?php echo $pro_id; ?>" class="zv-btn-outline"><i class="fa-solid fa-eye"></i> View Details</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        <?php
+                                            }
+                                        } else {
+                                            // Agar is category mein koi product nahi hai
+                                            echo "<div class='col-12 text-center py-5'>
+                                        <h5 class='text-muted'>No products currently available in this category.</h5>
+                                      </div>";
+                                        }
+                                        ?>
+                                    </div>
+                                </div>
+                            <?php } ?>
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
         <!-- Product Area End Here -->
-
-        <!-- Begin Banner Area -->
-        <div class="banner-area section-space-top-100">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4 col-md-6">
-                        <div class="banner-item">
-                            <div class="banner-img img-zoom-effect">
-                                <img class="img-full" src="assets/images/banner/castor.png" alt="Banner Image">
-                                <div class="inner-content">
-                                    <h5 class="offer">-10% Off</h5>
-                                    <h4 class="title mb-5">Pure<br>Castor</h4>
-                                    <div class="button-wrap">
-                                        <a class="btn btn-primary btn-white-hover rounded-0" href="#">Shop Now</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 pt-6 pt-md-0">
-                        <div class="banner-item">
-                            <div class="banner-img img-zoom-effect">
-                                <img class="img-full" src="assets/images/banner/psyllium-husk.png" alt="Banner Image">
-                                <div class="inner-content">
-                                    <h5 class="offer">-20% Off</h5>
-                                    <h4 class="title mb-5">Psyllium<br>Husk</h4>
-                                    <div class="button-wrap">
-                                        <a class="btn btn-custom-size btn-primary btn-white-hover rounded-0" href="#">Shop Now</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 pt-6 pt-lg-0">
-                        <div class="banner-item">
-                            <div class="banner-img img-zoom-effect">
-                                <img class="img-full" src="assets/images/banner/fennel.png" alt="Banner Image">
-                                <div class="inner-content">
-                                    <h5 class="offer">-30% Off</h5>
-                                    <h4 class="title mb-5">Fresh<br>Fennel</h4>
-                                    <div class="button-wrap">
-                                        <a class="btn btn-custom-size btn-primary btn-white-hover rounded-0" href="#">Shop Now</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Banner Area End Here -->
-
-        <!-- ==========================================
-     LATEST ARRIVAL PRODUCTS SLIDER
-=========================================== -->
-        <div class="product-area section-padding reveal">
+        <div class="product-area section-padding reveal mt-5">
             <div class="container">
                 <!-- Section Title -->
                 <div class="section-title text-center pb-5 mb-4">
                     <span class="sub-title text-primary" style="color: var(--bs-primary); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">See Our Latest</span>
-                    <h2 class="title mb-0" style="font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 700;">Arrival Products</h2>
+                    <h2 class="title mb-0" style="font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 700;">New Arrivals</h2>
                 </div>
 
                 <div class="row">
@@ -323,99 +346,60 @@ $resultArr = $conn->query($sqlArr);
                         <div class="swiper zv-arrival-slider">
                             <div class="swiper-wrapper py-3">
 
-                                <!-- Slide 1: Chickpeas -->
-                                 <?php 
-                                 if($result && $result->num_rows> 0){
-                                    while($row = $result->fetch_assoc()){
-                                        
-                                 ?>
-                                <div class="swiper-slide">
-                                    <div class="zv-pro-card">
-                                        <div class="zv-img-wrap">
-                                            <span class="zv-badge">New Arrival</span>
-                                            <a href="#">
-                                                <img src="assets/images/product/medium-size/chickpeas.png" alt="Premium Chickpeas">
-                                            </a>
-                                        </div>
-                                        <div class="zv-card-body">
-                                            <div class="zv-rating">
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                            </div>
-                                            <a href="#" class="zv-pro-title"><?php echo $row['pro_name']?></a>
-                                            <div class="zv-pro-price">
-                                                <span class="zv-currency">₹</span>80.00
-                                            </div>
-                                            <div class="zv-card-footer">
-                                                <a href="#" class="zv-btn-outline"><i class="fa-solid fa-eye"></i> View Details</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-<?php }} ?>
-                                <!-- Slide 2: Fennel -->
-                                <div class="swiper-slide">
-                                    <div class="zv-pro-card">
-                                        <div class="zv-img-wrap">
-                                            <a href="#">
-                                                <img src="assets/images/product/medium-size/fennel.png" alt="Fennel Seeds">
-                                            </a>
-                                        </div>
-                                        <div class="zv-card-body">
-                                            <div class="zv-rating">
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                            </div>
-                                            <a href="#" class="zv-pro-title">Fennel Seeds (Saunf)</a>
-                                            <div class="zv-pro-price">
-                                                <span class="zv-currency">₹</span>80.00
-                                            </div>
-                                            <div class="zv-card-footer">
-                                                <a href="#" class="zv-btn-outline"><i class="fa-solid fa-eye"></i> View Details</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <?php
+                                // Fetching only products marked as new_arrival = 1 and joining with categories[cite: 1]
+                                $sqlArrivals = "SELECT p.*, c.categories AS category_name FROM products p LEFT JOIN categories c ON p.pro_cate = c.cate_id WHERE p.status = 1 AND p.new_arrival = 1 ORDER BY p.id DESC LIMIT 4";
+                                $resultArrivals = $conn->query($sqlArrivals);
 
-                                <!-- Slide 3: Moringa -->
-                                <div class="swiper-slide">
-                                    <div class="zv-pro-card">
-                                        <div class="zv-img-wrap">
-                                            <a href="#">
-                                                <img src="assets/images/product/medium-size/moringa.png" alt="Moringa Powder">
-                                            </a>
-                                        </div>
-                                        <div class="zv-card-body">
-                                            <div class="zv-rating">
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                            </div>
-                                            <a href="#" class="zv-pro-title">Organic Moringa Powder</a>
-                                            <div class="zv-pro-price">
-                                                <span class="zv-currency">₹</span>80.00
-                                            </div>
-                                            <div class="zv-card-footer">
-                                                <a href="#" class="zv-btn-outline"><i class="fa-solid fa-eye"></i> View Details</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                if (isset($resultArrivals) && $resultArrivals->num_rows > 0) {
+                                    while ($row = $resultArrivals->fetch_assoc()) {
+                                        $pro_id = $row['id'];
+                                        $pro_name = htmlspecialchars($row['pro_name'], ENT_QUOTES, 'UTF-8');
+                                        $category = !empty($row['category_name']) ? htmlspecialchars($row['category_name'], ENT_QUOTES, 'UTF-8') : "Agro Products";
+                                        $selling_price = number_format($row['selling_price'], 2);
 
-                                <!-- Add more slides here following the same structure -->
+                                        // Fetching product image as stored in DB[cite: 1]
+                                        $img_path = !empty($row['pro_img']) ? "admin/assets/img/uploads/" . htmlspecialchars($row['pro_img'], ENT_QUOTES, 'UTF-8') : "assets/images/product/medium-size/default.png";
+                                ?>
+                                        <!-- Dynamic Product Slide -->
+                                        <div class="swiper-slide">
+                                            <div class="zv-pro-card">
+                                                <div class="zv-img-wrap">
+                                                    <span class="zv-badge">New Arrival</span>
+                                                    <a href="product-details.php?id=<?php echo $pro_id; ?>">
+                                                        <img src="<?php echo $img_path; ?>" alt="<?php echo $pro_name; ?>">
+                                                    </a>
+                                                </div>
+                                                <div class="zv-card-body">
+                                                    <div class="zv-pro-category"><?php echo $category; ?></div>
+                                                    <div class="zv-rating">
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-solid fa-star"></i>
+                                                    </div>
+                                                    <a href="product-details.php?id=<?php echo $pro_id; ?>" class="zv-pro-title"><?php echo $pro_name; ?></a>
+                                                    <div class="zv-pro-price">
+                                                        <span class="zv-currency">₹</span><?php echo $selling_price; ?>
+                                                    </div>
+                                                    <div class="zv-card-footer">
+                                                        <a href="product-details.php?id=<?php echo $pro_id; ?>" class="zv-btn-outline"><i class="fa-solid fa-eye"></i> View Details</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                <?php
+                                    }
+                                } else {
+                                    echo "<div class='text-center w-100 py-4 text-muted'>New arrival products will be updated soon.</div>";
+                                }
+                                ?>
 
                             </div>
                         </div>
 
-                        <!-- Custom Navigation Arrows (Outside the wrapper to prevent cutting off) -->
+                        <!-- Custom Navigation Arrows -->
                         <div class="zv-swiper-btn-prev shadow-sm"><i class="fa-solid fa-chevron-left"></i></div>
                         <div class="zv-swiper-btn-next shadow-sm"><i class="fa-solid fa-chevron-right"></i></div>
 
@@ -475,237 +459,65 @@ $resultArr = $conn->query($sqlArr);
         </div>
         <!-- Banner Area End Here -->
 
-        <!-- Begin Product Area -->
-        <div class="product-area section-space-top-100">
+        <!-- ==========================================
+     PREMIUM CATEGORY SLIDER SECTION
+=========================================== -->
+        <div class="category-area section-padding reveal">
             <div class="container">
-                <div class="section-title text-center pb-55">
-                    <span class="sub-title text-primary">See Our Latest</span>
-                    <h2 class="title mb-0">Arrival Products</h2>
+                <div class="section-title text-center pb-5 mb-4">
+                    <span class="sub-title text-primary" style="color: var(--bs-primary); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">Discover By</span>
+                    <h2 class="title mb-0" style="font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 700;">Top Categories</h2>
                 </div>
+
                 <div class="row">
-                    <div class="col-lg-12">
-                        <div class="swiper-container product-list-slider border-issue">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <div class="product-list-item">
-                                        <div class="product-img img-zoom-effect">
-                                            <a href="#">
-                                                <img class="img-full" src="assets/images/product/small-size/1-1-112x124.jpg" alt="Product Images">
+                    <div class="col-lg-12 position-relative">
+
+                        <!-- Custom Category Swiper -->
+                        <div class="swiper zv-category-slider">
+                            <div class="swiper-wrapper py-3">
+
+                                <?php
+                                if (isset($resultCate) && $resultCate->num_rows > 0) {
+                                    while ($row = $resultCate->fetch_assoc()) {
+                                        // Important: Using cate_id for relation
+                                        $c_id = $row['cate_id'];
+                                        $c_name = htmlspecialchars($row['categories'], ENT_QUOTES, 'UTF-8');
+
+                                        // Image handling (Default image agar blank hai)
+                                        $c_img = !empty($row['image']) ? "admin/uploads/category/" . htmlspecialchars($row['image']) : "assets/images/product/medium-size/default-category.png";
+                                ?>
+                                        <!-- Dynamic Category Slide -->
+                                        <div class="swiper-slide">
+                                            <!-- Clicking this will take user to the new page with cate_id -->
+                                            <a href="category-products.php?id=<?php echo $c_id; ?>" class="zv-category-card shadow-sm">
+                                                <div class="zv-category-img">
+                                                    <img src="<?php echo $c_img; ?>" alt="<?php echo $c_name; ?>">
+                                                    <div class="zv-category-overlay"></div>
+                                                </div>
+                                                <div class="zv-category-content">
+                                                    <h3 class="zv-category-title"><?php echo $c_name; ?></h3>
+                                                    <span class="zv-category-link">View Products <i class="fa-solid fa-arrow-right"></i></span>
+                                                </div>
                                             </a>
                                         </div>
-                                        <div class="product-content">
-                                            <a class="product-name" href="#">Black Pepper Grains</a>
-                                            <div class="price-box pb-1">
-                                                <span class="new-price">$80.00</span>
-                                            </div>
-                                            <div class="rating-box-wrap">
-                                                <div class="rating-box">
-                                                    <ul>
-                                                        <li><i class="pe-7s-star"></i></li>
-                                                        <li><i class="pe-7s-star"></i></li>
-                                                        <li><i class="pe-7s-star"></i></li>
-                                                        <li><i class="pe-7s-star"></i></li>
-                                                        <li><i class="pe-7s-star"></i></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="product-add-action">
-                                                    <ul>
-                                                        <li>
-                                                            <a href="#">
-                                                                <i class="pe-7s-cart"></i>
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="product-list-item">
-                                        <div class="product-img img-zoom-effect">
-                                            <a href="#">
-                                                <img class="img-full" src="assets/images/product/small-size/1-5-112x124.jpg" alt="Product Images">
-                                            </a>
-                                        </div>
-                                        <div class="product-content">
-                                            <a class="product-name" href="#">Black Paper Read</a>
-                                            <div class="price-box pb-1">
-                                                <span class="new-price">$80.00</span>
-                                            </div>
-                                            <div class="rating-box-wrap">
-                                                <div class="rating-box">
-                                                    <ul>
-                                                        <li><i class="pe-7s-star"></i></li>
-                                                        <li><i class="pe-7s-star"></i></li>
-                                                        <li><i class="pe-7s-star"></i></li>
-                                                        <li><i class="pe-7s-star"></i></li>
-                                                        <li><i class="pe-7s-star"></i></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="product-add-action">
-                                                    <ul>
-                                                        <li>
-                                                            <a href="#">
-                                                                <i class="pe-7s-cart"></i>
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="product-list-item">
-                                        <div class="product-img img-zoom-effect">
-                                            <a href="#">
-                                                <img class="img-full" src="assets/images/product/small-size/1-1-112x124.jpg" alt="Product Images">
-                                            </a>
-                                        </div>
-                                        <div class="product-content">
-                                            <a class="product-name" href="#">Black paper grains</a>
-                                            <div class="price-box pb-1">
-                                                <span class="new-price">$80.00</span>
-                                            </div>
-                                            <div class="rating-box-wrap">
-                                                <div class="rating-box">
-                                                    <ul>
-                                                        <li><i class="pe-7s-star"></i></li>
-                                                        <li><i class="pe-7s-star"></i></li>
-                                                        <li><i class="pe-7s-star"></i></li>
-                                                        <li><i class="pe-7s-star"></i></li>
-                                                        <li><i class="pe-7s-star"></i></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="product-add-action">
-                                                    <ul>
-                                                        <li>
-                                                            <a href="#">
-                                                                <i class="pe-7s-cart"></i>
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="product-list-item">
-                                        <div class="product-img img-zoom-effect">
-                                            <a href="#">
-                                                <img class="img-full" src="assets/images/product/small-size/1-1-112x124.jpg" alt="Product Images">
-                                            </a>
-                                        </div>
-                                        <div class="product-content">
-                                            <a class="product-name" href="#">Black paper grains</a>
-                                            <div class="price-box pb-1">
-                                                <span class="new-price">$80.00</span>
-                                            </div>
-                                            <div class="rating-box-wrap">
-                                                <div class="rating-box">
-                                                    <ul>
-                                                        <li><i class="pe-7s-star"></i></li>
-                                                        <li><i class="pe-7s-star"></i></li>
-                                                        <li><i class="pe-7s-star"></i></li>
-                                                        <li><i class="pe-7s-star"></i></li>
-                                                        <li><i class="pe-7s-star"></i></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="product-add-action">
-                                                    <ul>
-                                                        <li>
-                                                            <a href="#">
-                                                                <i class="pe-7s-cart"></i>
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="product-list-item">
-                                        <div class="product-img img-zoom-effect">
-                                            <a href="#">
-                                                <img class="img-full" src="assets/images/product/small-size/1-5-112x124.jpg" alt="Product Images">
-                                            </a>
-                                        </div>
-                                        <div class="product-content">
-                                            <a class="product-name" href="#">Black Peppepr Read</a>
-                                            <div class="price-box pb-1">
-                                                <span class="new-price">$80.00</span>
-                                            </div>
-                                            <div class="rating-box-wrap">
-                                                <div class="rating-box">
-                                                    <ul>
-                                                        <li><i class="pe-7s-star"></i></li>
-                                                        <li><i class="pe-7s-star"></i></li>
-                                                        <li><i class="pe-7s-star"></i></li>
-                                                        <li><i class="pe-7s-star"></i></li>
-                                                        <li><i class="pe-7s-star"></i></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="product-add-action">
-                                                    <ul>
-                                                        <li>
-                                                            <a href="#">
-                                                                <i class="pe-7s-cart"></i>
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="product-list-item">
-                                        <div class="product-img img-zoom-effect">
-                                            <a href="#">
-                                                <img class="img-full" src="assets/images/product/small-size/1-5-112x124.jpg" alt="Product Images">
-                                            </a>
-                                        </div>
-                                        <div class="product-content">
-                                            <a class="product-name" href="#">Black Paper Read</a>
-                                            <div class="price-box pb-1">
-                                                <span class="new-price">$80.00</span>
-                                            </div>
-                                            <div class="rating-box-wrap">
-                                                <div class="rating-box">
-                                                    <ul>
-                                                        <li><i class="pe-7s-star"></i></li>
-                                                        <li><i class="pe-7s-star"></i></li>
-                                                        <li><i class="pe-7s-star"></i></li>
-                                                        <li><i class="pe-7s-star"></i></li>
-                                                        <li><i class="pe-7s-star"></i></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="product-add-action">
-                                                    <ul>
-                                                        <li>
-                                                            <a href="#">
-                                                                <i class="pe-7s-cart"></i>
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <?php
+                                    }
+                                } else {
+                                    echo "<div class='text-center w-100 py-4'>No categories found.</div>";
+                                }
+                                ?>
+
                             </div>
-                            <!-- Add Arrows -->
-                            <div class="swiper-button-next"></div>
-                            <div class="swiper-button-prev"></div>
                         </div>
+
+                        <!-- Category Navigation Arrows -->
+                        <div class="zv-cat-btn-prev shadow-sm"><i class="fa-solid fa-chevron-left"></i></div>
+                        <div class="zv-cat-btn-next shadow-sm"><i class="fa-solid fa-chevron-right"></i></div>
+
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- Product Area End Here -->
+        </div>>
 
         <section class="blog-section section-padding reveal">
             <div class="container">
@@ -716,66 +528,66 @@ $resultArr = $conn->query($sqlArr);
 
                 <div class="blog-grid-wrapper">
 
-                    <!-- Blog Card 1 -->
-                    <div class="zen-blog-card">
-                        <div class="card-image-wrap">
-                            <img src="assets/images/product/medium-size/moringa.png" alt="Spice Export Trends">
-                        </div>
-                        <div class="card-content">
-                            <div class="blog-meta">
-                                <span><i class="fa-solid fa-user-tie"></i> Zenvyara Admin</span>
-                                <span><i class="fa-solid fa-calendar-days"></i> 23 Jul 2026</span>
+                    <?php
+                    if ($resultBlog && $resultBlog->num_rows > 0) {
+                        while ($row = $resultBlog->fetch_assoc()) {
+                            $blog_id = $row['id'];
+                            $title = htmlspecialchars($row['title'], ENT_QUOTES, 'UTF-8');
+                            $author = !empty($row['author']) ? htmlspecialchars($row['author'], ENT_QUOTES, 'UTF-8') : "Admin";
+                            $date = date('d M, Y', strtotime($row['created_at']));
+
+                            // Decode full content (For Modal)
+                            $raw_content = html_entity_decode($row['content']);
+
+                            // Excerpt for the Card (stripped of tags)
+                            $clean_text = strip_tags($raw_content);
+                            $excerpt = mb_strlen($clean_text) > 120 ? mb_substr($clean_text, 0, 120) . "..." : $clean_text;
+
+                            // FIX: Make strings safe for HTML data-* attributes so they don't break the popup
+                            $safe_long_text = htmlspecialchars($clean_text, ENT_QUOTES, 'UTF-8');
+                            $safe_short_text = htmlspecialchars($excerpt, ENT_QUOTES, 'UTF-8');
+
+                            $img_path = !empty($row['image']) ? "admin/assets/img/uploads/" . htmlspecialchars($row['image']) : "https://placehold.co/800x600/eeeeee/999999?text=Blog+Image";
+                    ?>
+                            <!-- Blog Card -->
+                            <div class="zen-blog-card">
+                                <div class="card-image-wrap">
+                                    <img src="<?php echo $img_path; ?>" alt="<?php echo $title; ?>">
+                                </div>
+                                <div class="card-content">
+                                    <div class="blog-meta">
+                                        <span><i class="fa-solid fa-user-tie"></i> <?php echo $author; ?></span>
+                                        <span><i class="fa-solid fa-calendar-days"></i> <?php echo $date; ?></span>
+                                    </div>
+
+                                    <!-- FIX: Properly closed the h3 tag here -->
+                                    <h3 class="blog-title"><?php echo $title; ?></h3>
+
+                                    <p class="blog-short-desc"><?php echo $excerpt; ?></p>
+
+                                    <!-- Button with Data Attributes -->
+                                    <button type="button" class="btn-read-more open-blog-modal"
+                                        data-img="<?php echo $img_path; ?>"
+                                        data-admin="<?php echo $author; ?>"
+                                        data-date="<?php echo $date; ?>"
+                                        data-title="<?php echo $title; ?>"
+                                        data-short="<?php echo $safe_short_text; ?>"
+                                        data-long="<?php echo $safe_long_text; ?>">
+                                        READ MORE <i class="fa-solid fa-arrow-right-long"></i>
+                                    </button>
+                                </div>
                             </div>
-                            <h3 class="blog-title">Global Spice Export Trends in 2026</h3>
-                            <p class="blog-short-desc">Discover the rising demand for organic spices in the European market...</p>
-
-                            <!-- Button with Data Attributes -->
-                            <button type="button" class="btn-read-more open-blog-modal"
-                                data-img="assets/images/product/medium-size/moringa.png"
-                                data-admin="Zenvyara Admin"
-                                data-date="23 Jul 2026"
-                                data-title="Global Spice Export Trends in 2026"
-                                data-short="Discover the rising demand for organic spices in the European market and how exporters are adapting."
-                                data-long="The international spice trade has seen a massive shift towards organic and ethically sourced products. In 2026, European and North American buyers are prioritizing transparency in the supply chain. At Zenvyara, we have adapted to these trends by implementing strict quality control and direct-to-farm procurement strategies. This ensures that every batch we export meets the highest global standards, giving our clients a competitive edge in their local markets.">
-                                READ MORE <i class="fa-solid fa-arrow-right-long"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Blog Card 2 -->
-                    <div class="zen-blog-card">
-                        <div class="card-image-wrap">
-                            <img src="assets/images/product/medium-size/peanuts-1.png" alt="Quality Control">
-                        </div>
-                        <div class="card-content">
-                            <div class="blog-meta">
-                                <span><i class="fa-solid fa-user-tie"></i> Quality Team</span>
-                                <span><i class="fa-solid fa-calendar-days"></i> 18 Jul 2026</span>
-                            </div>
-                            <h3 class="blog-title">Maintaining Purity in Spice Processing</h3>
-                            <p class="blog-short-desc">How our advanced sorting technology ensures 99.9% purity in every bag...</p>
-
-                            <!-- Button with Data Attributes -->
-                            <button type="button" class="btn-read-more open-blog-modal"
-                                data-img="assets/images/product/medium-size/peanuts-1.png"
-                                data-admin="Quality Team"
-                                data-date="18 Jul 2026"
-                                data-title="Maintaining Purity in Spice Processing"
-                                data-short="How our advanced sorting technology ensures 99.9% purity in every bag."
-                                data-long="Quality control is the backbone of the agro-export industry. Adulteration is a major concern for global buyers, which is why Zenvyara utilizes state-of-the-art optical color sorters and magnetic separators. Our automated processing lines remove impurities without compromising the natural essential oils of the spices. This blog explains our step-by-step cleaning process that guarantees 99.9% purity.">
-                                READ MORE <i class="fa-solid fa-arrow-right-long"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Add more blog cards as needed -->
+                    <?php
+                        }
+                    }
+                    ?>
 
                 </div>
             </div>
         </section>
 
         <!-- ==========================================
-     BLOG POPUP MODAL (Hidden by default)
+ BLOG POPUP MODAL (Hidden by default)
 =========================================== -->
         <div id="zenBlogModal" class="zen-custom-modal">
             <div class="zen-modal-content blog-modal-content shadow-lg">
@@ -805,6 +617,7 @@ $resultArr = $conn->query($sqlArr);
                 </div>
             </div>
         </div>
+
         <!-- Begin Footer Area -->
         <?php include("./include/footer.php") ?>
         <!-- Footer Area End Here -->
@@ -842,6 +655,38 @@ $resultArr = $conn->query($sqlArr);
     <script src="assets/js/main.js"></script>
 
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            if (typeof Swiper !== 'undefined') {
+                var categorySlider = new Swiper(".zv-category-slider", {
+                    slidesPerView: 1,
+                    spaceBetween: 20,
+                    loop: true,
+                    autoplay: {
+                        delay: 3000,
+                        disableOnInteraction: false
+                    },
+                    navigation: {
+                        nextEl: ".zv-cat-btn-next",
+                        prevEl: ".zv-cat-btn-prev",
+                    },
+                    breakpoints: {
+                        576: {
+                            slidesPerView: 2,
+                            spaceBetween: 20
+                        },
+                        768: {
+                            slidesPerView: 3,
+                            spaceBetween: 30
+                        },
+                        1024: {
+                            slidesPerView: 4,
+                            spaceBetween: 30
+                        }
+                    }
+                });
+            }
+        });
+
         document.addEventListener("DOMContentLoaded", function() {
             // Check if Swiper library is loaded
             if (typeof Swiper !== 'undefined') {

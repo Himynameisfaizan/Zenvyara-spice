@@ -13,7 +13,7 @@
                     <div class="footer-widget">
                         <div class="footer-logo mb-4">
                             <a href="index.php">
-                                <img src="assets/images/logo/dark1.png" alt="Zenvyara Global Export">
+                                <img src="assets/images/logo/dark.png" alt="Zenvyara Global Export">
                             </a>
                         </div>
                         <p class="footer-desc">
@@ -33,12 +33,12 @@
                     <div class="footer-widget">
                         <h4 class="widget-title">Quick Links</h4>
                         <ul class="footer-links">
-                            <li><a href="<?php echo $site; ?>"><i class="fa-solid fa-angle-right"></i> Home</a></li>
-                            <li><a href="<?php echo $site; ?>about.php"><i class="fa-solid fa-angle-right"></i> About Us</a></li>
-                            <li><a href="<?php echo $site; ?>service.php"><i class="fa-solid fa-angle-right"></i> Services</a></li>
-                            <li><a href="<?php echo $site; ?>product.php"><i class="fa-solid fa-angle-right"></i> Products</a></li>
-                            <li><a href="<?php echo $site; ?>blogs.php"><i class="fa-solid fa-angle-right"></i> Blogs</a></li>
-                            <li><a href="<?php echo $site; ?>contact.php"><i class="fa-solid fa-angle-right"></i> Contact</a></li>
+                            <li><a href="index.php"><i class="fa-solid fa-angle-right"></i> Home</a></li>
+                            <li><a href="about.php"><i class="fa-solid fa-angle-right"></i> About Us</a></li>
+                            <li><a href="service.php"><i class="fa-solid fa-angle-right"></i> Services</a></li>
+                            <li><a href="product.php"><i class="fa-solid fa-angle-right"></i> Products</a></li>
+                            <li><a href="blogs.php"><i class="fa-solid fa-angle-right"></i> Blogs</a></li>
+                            <li><a href="contact.php"><i class="fa-solid fa-angle-right"></i> Contact</a></li>
                         </ul>
                     </div>
                 </div>

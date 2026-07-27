@@ -1,9 +1,12 @@
 <?php
-
+include("./admin/db-conn.php");
 $pageTitle = "Our Services";
+
 include("./include/header.php");
 include("./include/breadcrumb.php");
 
+$serviceQuery = "SELECT * FROM services ORDER BY id ASC";
+$resultServices = $conn->query($serviceQuery); 
 ?>
 
 <!-- Services Grid Section -->
@@ -16,54 +19,50 @@ include("./include/breadcrumb.php");
 
         <div class="service-grid-wrapper">
 
-            <!-- Service Card 1 -->
-            <div class="zen-service-card">
-                <div class="card-image-wrap">
-                    <img src="assets/images/product/medium-size/moringa.png" alt="Global Exporting">
-                </div>
-                <div class="card-content">
-                    <h3 class="service-title">Global Exporting</h3>
-                    <p class="service-short-desc">Seamless and timely export of premium spices worldwide.</p>
+            <?php
+            if (isset($resultServices) && $resultServices->num_rows > 0) {
+                while ($row = $resultServices->fetch_assoc()) {
+                    // Security aur clean structure ke liye variables assign karna
+                    $title = htmlspecialchars($row['service_name'], ENT_QUOTES, 'UTF-8');
+                    $short_desc = htmlspecialchars($row['short_desc'], ENT_QUOTES, 'UTF-8');
+                    
+                    // Long description mein DB se HTML aayega, usko pehle decode kiya, phir data-attribute ke liye safe banaya
+                    $raw_long_desc = html_entity_decode($row['long_desc']);
+                    $safe_long_desc = htmlspecialchars($raw_long_desc, ENT_QUOTES, 'UTF-8');
+                    
+                    // Image Path
+                    $img_path = !empty($row['img_path']) ? "admin/assets/img/uploads/" . htmlspecialchars($row['img_path'], ENT_QUOTES, 'UTF-8') : "assets/images/product/medium-size/default.png";
+            ?>
+                    <!-- Dynamic Service Card -->
+                    <div class="zen-service-card">
+                        <div class="card-image-wrap">
+                            <img src="<?php echo $img_path; ?>" alt="<?php echo $title; ?>">
+                        </div>
+                        <div class="card-content">
+                            <h3 class="service-title"><?php echo $title; ?></h3>
+                            <p class="service-short-desc"><?php echo $short_desc; ?></p>
 
-                    <!-- Button with Data Attributes for Popup -->
-                    <button type="button" class="btn-view-details open-service-modal"
-                        data-img="assets/images/product/medium-size/moringa.png"
-                        data-title="Global Exporting"
-                        data-short="Seamless and timely export of premium spices worldwide."
-                        data-long="We handle the entire logistics chain from our farms in India to your port of choice. Our export services include strict compliance with international food safety standards, phytosanitary certifications, and seamless customs clearance, ensuring your cargo arrives fresh and on time.">
-                        VIEW DETAILS <i class="fa-solid fa-arrow-right"></i>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Service Card 2 -->
-            <div class="zen-service-card">
-                <div class="card-image-wrap">
-                    <img src="assets/images/product/medium-size/peanuts-1.png" alt="Custom Packaging">
-                </div>
-                <div class="card-content">
-                    <h3 class="service-title">Custom Packaging</h3>
-                    <p class="service-short-desc">Private label and bulk packaging solutions tailored for you.</p>
-
-                    <button type="button" class="btn-view-details open-service-modal"
-                        data-img="assets/images/product/medium-size/peanuts-1.png"
-                        data-title="Custom Packaging"
-                        data-short="Private label and bulk packaging solutions tailored for you."
-                        data-long="Stand out in the market with our OEM and private label packaging services. We offer everything from 25kg bulk PP bags for wholesale buyers to customized, branded retail pouches. Our packaging preserves the aroma, essential oils, and freshness of the spices.">
-                        VIEW DETAILS <i class="fa-solid fa-arrow-right"></i>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Add more cards as needed -->
+                            <!-- Button with Safe Data Attributes for Popup -->
+                            <button type="button" class="btn-view-details open-service-modal"
+                                data-img="<?php echo $img_path; ?>"
+                                data-title="<?php echo $title; ?>"
+                                data-short="<?php echo $short_desc; ?>"
+                                data-long="<?php echo $safe_long_desc; ?>">
+                                VIEW DETAILS <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+            <?php 
+                }
+            } else {
+                echo "<div class='col-12 text-center py-5'><h4>No services updated yet.</h4></div>";
+            }
+            ?>
 
         </div>
     </div>
 </section>
 
-<!-- ==========================================
-     CUSTOM POPUP MODAL (Hidden by default)
-=========================================== -->
 <div id="zenServiceModal" class="zen-custom-modal">
     <div class="zen-modal-content shadow-lg">
         <!-- Close Button -->
@@ -84,7 +83,9 @@ include("./include/breadcrumb.php");
                     <h2 id="modalTitle" class="modal-title-custom"></h2>
                     <h5 id="modalShortDesc" class="modal-short-desc"></h5>
                     <div class="divider-line"></div>
-                    <p id="modalLongDesc" class="modal-long-desc"></p>
+                    
+                    <!-- ID for Long Desc (JS will inject innerHTML here) -->
+                    <div id="modalLongDesc" class="modal-long-desc"></div>
 
                     <?php global $site; ?>
                     <a href="<?php echo $site; ?>contact.php" class="btn-quote-large mt-4">
@@ -121,18 +122,20 @@ include("./include/breadcrumb.php");
                 modalImage.src = imgSrc;
                 modalTitle.innerText = titleText;
                 modalShort.innerText = shortText;
-                modalLong.innerText = longText;
+                
+                // IMPORTANT: Used innerHTML so <p> tags from database render properly
+                modalLong.innerHTML = longText; 
 
                 // Show Modal with Animation
                 modal.classList.add("show-modal");
-                document.body.style.overflow = "hidden"; // Background scroll stop karne ke liye
+                document.body.style.overflow = "hidden"; // Stop background scroll
             });
         });
 
         // Close Modal Function
         function closeModal() {
             modal.classList.remove("show-modal");
-            document.body.style.overflow = "auto"; // Background scroll chalu
+            document.body.style.overflow = "auto"; // Resume background scroll
         }
 
         closeBtn.addEventListener("click", closeModal);

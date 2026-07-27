@@ -72,7 +72,7 @@
                 <!-- Logo Section -->
                 <div class="header-logo">
                     <a href="index.php">
-                        <img src="assets/images/logo/dark1.png" alt="Zenvyara Logo" class="img-fluid">
+                        <img src="assets/images/logo/dark.png" alt="Zenvyara Logo" class="img-fluid">
                     </a>
                 </div>
 
@@ -80,11 +80,11 @@
                 <nav class="zen-main-nav d-none d-lg-block">
                     <ul>
                         <li><a href="index.php" class="active">Home</a></li>
-                        <li><a href="<?php echo $site; ?>about.php">About</a></li>
-                        <li><a href="<?php echo $site; ?>product.php">Product</a></li>
-                        <li><a href="<?php echo $site; ?>service.php">Our Services</a></li>
-                        <li><a href="<?php echo $site; ?>blogs.php">Blogs</a></li>
-                        <li><a href="<?php echo $site; ?>contact.php">Contact</a></li>
+                        <li><a href="about.php">About</a></li>
+                        <li><a href="product.php">Product</a></li>
+                        <li><a href="service.php">Our Services</a></li>
+                        <li><a href="blogs.php">Blogs</a></li>
+                        <li><a href="contact.php">Contact</a></li>
                     </ul>
                 </nav>
 
