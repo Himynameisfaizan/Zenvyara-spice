@@ -84,7 +84,6 @@ $resultServices = $conn->query($serviceQuery);
                     <h5 id="modalShortDesc" class="modal-short-desc"></h5>
                     <div class="divider-line"></div>
                     
-                    <!-- ID for Long Desc (JS will inject innerHTML here) -->
                     <div id="modalLongDesc" class="modal-long-desc"></div>
 
                     <?php global $site; ?>

@@ -461,7 +461,7 @@ $resultCate = $conn->query($sqlCate);
 
         <!-- ==========================================
      PREMIUM CATEGORY SLIDER SECTION
-=========================================== -->
+    =========================================== -->
         <div class="category-area section-padding reveal">
             <div class="container">
                 <div class="section-title text-center pb-5 mb-4">
@@ -536,14 +536,11 @@ $resultCate = $conn->query($sqlCate);
                             $author = !empty($row['author']) ? htmlspecialchars($row['author'], ENT_QUOTES, 'UTF-8') : "Admin";
                             $date = date('d M, Y', strtotime($row['created_at']));
 
-                            // Decode full content (For Modal)
                             $raw_content = html_entity_decode($row['content']);
 
-                            // Excerpt for the Card (stripped of tags)
                             $clean_text = strip_tags($raw_content);
                             $excerpt = mb_strlen($clean_text) > 120 ? mb_substr($clean_text, 0, 120) . "..." : $clean_text;
 
-                            // FIX: Make strings safe for HTML data-* attributes so they don't break the popup
                             $safe_long_text = htmlspecialchars($clean_text, ENT_QUOTES, 'UTF-8');
                             $safe_short_text = htmlspecialchars($excerpt, ENT_QUOTES, 'UTF-8');
 
