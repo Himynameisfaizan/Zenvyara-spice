@@ -21,7 +21,7 @@ $resultCate = $conn->query($sqlCate);
 
     <div class="main-wrapper">
 
-        <?php include("./include/header.php") ?>
+        <?php include("include/header.php") ?>
 
         <!-- Begin Slider Area -->
         <div class="slider-area">
@@ -53,14 +53,16 @@ $resultCate = $conn->query($sqlCate);
                                         <span class="sub-title mb-3">Natural & Organic</span>
                                         <h2 class="title mb-9">-40% Offer All <br> Products.</h2>
                                         <div class="button-wrap">
-                                            <a class="btn btn-custom-size lg-size btn-primary btn-white-hover rounded-0" href="#">Shop Now</a>
+                                            <a class="btn btn-custom-size lg-size btn-primary btn-white-hover rounded-0"
+                                                href="#">Shop Now</a>
                                         </div>
                                     </div>
                                     <div class="parallax-img-wrap">
                                         <div class="tomatoes">
                                             <div class="scene fill">
                                                 <div class="expand-width" data-depth="0.5">
-                                                    <img src="assets/images/slider/inner-img/peanuts.png" alt="Inner Image">
+                                                    <img src="assets/images/slider/inner-img/peanuts.png"
+                                                        alt="Inner Image">
                                                 </div>
                                             </div>
                                         </div>
@@ -93,14 +95,16 @@ $resultCate = $conn->query($sqlCate);
                                         <span class="sub-title mb-3">Natural & Organic</span>
                                         <h2 class="title mb-9">-40% Offer All <br> Products.</h2>
                                         <div class="button-wrap">
-                                            <a class="btn btn-custom-size lg-size btn-primary btn-white-hover rounded-0" href="#">Shop Now</a>
+                                            <a class="btn btn-custom-size lg-size btn-primary btn-white-hover rounded-0"
+                                                href="#">Shop Now</a>
                                         </div>
                                     </div>
                                     <div class="parallax-img-wrap">
                                         <div class="tomatoes">
                                             <div class="scene fill">
                                                 <div class="expand-width" data-depth="0.5">
-                                                    <img src="assets/images/slider/inner-img/peanuts.png" alt="Inner Image">
+                                                    <img src="assets/images/slider/inner-img/peanuts.png"
+                                                        alt="Inner Image">
                                                 </div>
                                             </div>
                                         </div>
@@ -168,8 +172,12 @@ $resultCate = $conn->query($sqlCate);
             <div class="container">
 
                 <div class="section-title text-center pb-4 mb-3">
-                    <span class="sub-title text-primary" style="color: var(--bs-primary); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">Our Collection</span>
-                    <h2 class="title mb-0" style="font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 700;">Explore By Category</h2>
+                    <span class="sub-title text-primary"
+                        style="color: var(--bs-primary); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">Our
+                        Collection</span>
+                    <h2 class="title mb-0"
+                        style="font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 700;">Explore By
+                        Category</h2>
                 </div>
 
                 <div class="row">
@@ -189,10 +197,12 @@ $resultCate = $conn->query($sqlCate);
                         ?>
 
                         <!-- Dynamic Styled Tabs -->
-                        <ul class="nav product-tab-nav pb-5 d-flex justify-content-center gap-3 border-0" id="myTab" role="tablist">
+                        <ul class="nav product-tab-nav pb-5 d-flex justify-content-center gap-3 border-0" id="myTab"
+                            role="tablist">
                             <!-- Default 'All Items' Tab -->
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link active custom-tab" id="all-items-tab" data-bs-toggle="tab" data-bs-target="#all-items" type="button" role="tab">
+                                <button class="nav-link active custom-tab" id="all-items-tab" data-bs-toggle="tab"
+                                    data-bs-target="#all-items" type="button" role="tab">
                                     <span class="d-block mb-2"><i class="fa-solid fa-layer-group fs-4"></i></span>
                                     All Items
                                 </button>
@@ -205,15 +215,17 @@ $resultCate = $conn->query($sqlCate);
                                 // Category Icon/Image Logic
                                 $catImg = !empty($cat['image']) ? "admin/uploads/category/" . htmlspecialchars($cat['image']) : "assets/images/product/icon/1.png";
                             ?>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link custom-tab" id="tab-<?php echo $catId; ?>" data-bs-toggle="tab" data-bs-target="#pane-<?php echo $catId; ?>" type="button" role="tab">
-                                        <span class="d-block mb-2">
-                                            <!-- Agar icon database mein hai toh img use karein, warna fallback -->
-                                            <img src="<?php echo $catImg; ?>" alt="Icon" width="30" style="height:30px; object-fit:contain;">
-                                        </span>
-                                        <?php echo $catName; ?>
-                                    </button>
-                                </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link custom-tab" id="tab-<?php echo $catId; ?>" data-bs-toggle="tab"
+                                    data-bs-target="#pane-<?php echo $catId; ?>" type="button" role="tab">
+                                    <span class="d-block mb-2">
+                                        <!-- Agar icon database mein hai toh img use karein, warna fallback -->
+                                        <img src="<?php echo $catImg; ?>" alt="Icon" width="30"
+                                            style="height:30px; object-fit:contain;">
+                                    </span>
+                                    <?php echo $catName; ?>
+                                </button>
+                            </li>
                             <?php } ?>
                         </ul>
 
@@ -235,30 +247,35 @@ $resultCate = $conn->query($sqlCate);
                                             $selling_price = number_format($row['selling_price'], 2);
                                             $img_path = !empty($row['pro_img']) ? "admin/assets/img/uploads/" . htmlspecialchars($row['pro_img']) : "assets/images/product/medium-size/default.png";
                                     ?>
-                                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
-                                                <div class="zv-pro-card">
-                                                    <div class="zv-img-wrap">
-                                                        <span class="zv-badge">Export Quality</span>
-                                                        <a href="product-details.php?id=<?php echo $pro_id; ?>">
-                                                            <img src="<?php echo $img_path; ?>" alt="<?php echo $pro_name; ?>">
-                                                        </a>
-                                                    </div>
-                                                    <div class="zv-card-body">
-                                                        <!-- Category Text Added Here -->
-                                                        <div class="zv-pro-category"><?php echo $category; ?></div>
-                                                        <div class="zv-rating">
-                                                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                                                        </div>
-                                                        <a href="product-details.php?id=<?php echo $pro_id; ?>" class="zv-pro-title"><?php echo $pro_name; ?></a>
-                                                        <div class="zv-pro-price">
-                                                            <span class="zv-currency">₹</span><?php echo $selling_price; ?>
-                                                        </div>
-                                                        <div class="zv-card-footer">
-                                                            <a href="product-details.php?id=<?php echo $pro_id; ?>" class="zv-btn-outline"><i class="fa-solid fa-eye"></i> View Details</a>
-                                                        </div>
-                                                    </div>
+                                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
+                                        <div class="zv-pro-card">
+                                            <div class="zv-img-wrap">
+                                                <span class="zv-badge">Export Quality</span>
+                                                <a href="product-details.php?id=<?php echo $pro_id; ?>">
+                                                    <img src="<?php echo $img_path; ?>" alt="<?php echo $pro_name; ?>">
+                                                </a>
+                                            </div>
+                                            <div class="zv-card-body">
+                                                <!-- Category Text Added Here -->
+                                                <div class="zv-pro-category"><?php echo $category; ?></div>
+                                                <div class="zv-rating">
+                                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                                        class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                                        class="fa-solid fa-star"></i>
+                                                </div>
+                                                <a href="product-details.php?id=<?php echo $pro_id; ?>"
+                                                    class="zv-pro-title"><?php echo $pro_name; ?></a>
+                                                <div class="zv-pro-price">
+                                                    <span class="zv-currency">₹</span><?php echo $selling_price; ?>
+                                                </div>
+                                                <div class="zv-card-footer">
+                                                    <a href="product-details.php?id=<?php echo $pro_id; ?>"
+                                                        class="zv-btn-outline"><i class="fa-solid fa-eye"></i> View
+                                                        Details</a>
                                                 </div>
                                             </div>
+                                        </div>
+                                    </div>
                                     <?php
                                         }
                                     } else {
@@ -273,9 +290,9 @@ $resultCate = $conn->query($sqlCate);
                                 $catId = $cat['cate_id'];
                                 $catName = htmlspecialchars($cat['categories'], ENT_QUOTES, 'UTF-8');
                             ?>
-                                <div class="tab-pane fade" id="pane-<?php echo $catId; ?>" role="tabpanel">
-                                    <div class="row g-4 zv-product-grid">
-                                        <?php
+                            <div class="tab-pane fade" id="pane-<?php echo $catId; ?>" role="tabpanel">
+                                <div class="row g-4 zv-product-grid">
+                                    <?php
                                         // Fetch products specifically for this category tab
                                         $sqlCatProd = "SELECT p.*, c.categories AS category_name FROM products p LEFT JOIN categories c ON p.pro_cate = c.cate_id WHERE p.pro_cate = $catId AND p.status = 1 ORDER BY p.id DESC LIMIT 8";
                                         $resultCatProd = $conn->query($sqlCatProd);
@@ -287,31 +304,36 @@ $resultCate = $conn->query($sqlCate);
                                                 $selling_price = number_format($row['selling_price'], 2);
                                                 $img_path = !empty($row['pro_img']) ? "admin/assets/img/uploads/" . htmlspecialchars($row['pro_img']) : "assets/images/product/medium-size/default.png";
                                         ?>
-                                                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
-                                                    <div class="zv-pro-card">
-                                                        <div class="zv-img-wrap">
-                                                            <span class="zv-badge">Export Quality</span>
-                                                            <a href="product-details.php?id=<?php echo $pro_id; ?>">
-                                                                <img src="<?php echo $img_path; ?>" alt="<?php echo $pro_name; ?>">
-                                                            </a>
-                                                        </div>
-                                                        <div class="zv-card-body">
-                                                            <!-- Category Text Added Here -->
-                                                            <div class="zv-pro-category"><?php echo $catName; ?></div>
-                                                            <div class="zv-rating">
-                                                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                                                            </div>
-                                                            <a href="product-details.php?id=<?php echo $pro_id; ?>" class="zv-pro-title"><?php echo $pro_name; ?></a>
-                                                            <div class="zv-pro-price">
-                                                                <span class="zv-currency">₹</span><?php echo $selling_price; ?>
-                                                            </div>
-                                                            <div class="zv-card-footer">
-                                                                <a href="product-details.php?id=<?php echo $pro_id; ?>" class="zv-btn-outline"><i class="fa-solid fa-eye"></i> View Details</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
+                                        <div class="zv-pro-card">
+                                            <div class="zv-img-wrap">
+                                                <span class="zv-badge">Export Quality</span>
+                                                <a href="product-details.php?id=<?php echo $pro_id; ?>">
+                                                    <img src="<?php echo $img_path; ?>" alt="<?php echo $pro_name; ?>">
+                                                </a>
+                                            </div>
+                                            <div class="zv-card-body">
+                                                <!-- Category Text Added Here -->
+                                                <div class="zv-pro-category"><?php echo $catName; ?></div>
+                                                <div class="zv-rating">
+                                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                                        class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                                        class="fa-solid fa-star"></i>
                                                 </div>
-                                        <?php
+                                                <a href="product-details.php?id=<?php echo $pro_id; ?>"
+                                                    class="zv-pro-title"><?php echo $pro_name; ?></a>
+                                                <div class="zv-pro-price">
+                                                    <span class="zv-currency">₹</span><?php echo $selling_price; ?>
+                                                </div>
+                                                <div class="zv-card-footer">
+                                                    <a href="product-details.php?id=<?php echo $pro_id; ?>"
+                                                        class="zv-btn-outline"><i class="fa-solid fa-eye"></i> View
+                                                        Details</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <?php
                                             }
                                         } else {
                                             // Agar is category mein koi product nahi hai
@@ -320,8 +342,8 @@ $resultCate = $conn->query($sqlCate);
                                       </div>";
                                         }
                                         ?>
-                                    </div>
                                 </div>
+                            </div>
                             <?php } ?>
 
                         </div>
@@ -335,8 +357,12 @@ $resultCate = $conn->query($sqlCate);
             <div class="container">
                 <!-- Section Title -->
                 <div class="section-title text-center pb-5 mb-4">
-                    <span class="sub-title text-primary" style="color: var(--bs-primary); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">See Our Latest</span>
-                    <h2 class="title mb-0" style="font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 700;">New Arrivals</h2>
+                    <span class="sub-title text-primary"
+                        style="color: var(--bs-primary); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">See
+                        Our Latest</span>
+                    <h2 class="title mb-0"
+                        style="font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 700;">New Arrivals
+                    </h2>
                 </div>
 
                 <div class="row">
@@ -361,34 +387,37 @@ $resultCate = $conn->query($sqlCate);
                                         // Fetching product image as stored in DB[cite: 1]
                                         $img_path = !empty($row['pro_img']) ? "admin/assets/img/uploads/" . htmlspecialchars($row['pro_img'], ENT_QUOTES, 'UTF-8') : "assets/images/product/medium-size/default.png";
                                 ?>
-                                        <!-- Dynamic Product Slide -->
-                                        <div class="swiper-slide">
-                                            <div class="zv-pro-card">
-                                                <div class="zv-img-wrap">
-                                                    <span class="zv-badge">New Arrival</span>
-                                                    <a href="product-details.php?id=<?php echo $pro_id; ?>">
-                                                        <img src="<?php echo $img_path; ?>" alt="<?php echo $pro_name; ?>">
-                                                    </a>
-                                                </div>
-                                                <div class="zv-card-body">
-                                                    <div class="zv-pro-category"><?php echo $category; ?></div>
-                                                    <div class="zv-rating">
-                                                        <i class="fa-solid fa-star"></i>
-                                                        <i class="fa-solid fa-star"></i>
-                                                        <i class="fa-solid fa-star"></i>
-                                                        <i class="fa-solid fa-star"></i>
-                                                        <i class="fa-solid fa-star"></i>
-                                                    </div>
-                                                    <a href="product-details.php?id=<?php echo $pro_id; ?>" class="zv-pro-title"><?php echo $pro_name; ?></a>
-                                                    <div class="zv-pro-price">
-                                                        <span class="zv-currency">₹</span><?php echo $selling_price; ?>
-                                                    </div>
-                                                    <div class="zv-card-footer">
-                                                        <a href="product-details.php?id=<?php echo $pro_id; ?>" class="zv-btn-outline"><i class="fa-solid fa-eye"></i> View Details</a>
-                                                    </div>
-                                                </div>
+                                <!-- Dynamic Product Slide -->
+                                <div class="swiper-slide">
+                                    <div class="zv-pro-card">
+                                        <div class="zv-img-wrap">
+                                            <span class="zv-badge">New Arrival</span>
+                                            <a href="product-details.php?id=<?php echo $pro_id; ?>">
+                                                <img src="<?php echo $img_path; ?>" alt="<?php echo $pro_name; ?>">
+                                            </a>
+                                        </div>
+                                        <div class="zv-card-body">
+                                            <div class="zv-pro-category"><?php echo $category; ?></div>
+                                            <div class="zv-rating">
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                            </div>
+                                            <a href="product-details.php?id=<?php echo $pro_id; ?>"
+                                                class="zv-pro-title"><?php echo $pro_name; ?></a>
+                                            <div class="zv-pro-price">
+                                                <span class="zv-currency">₹</span><?php echo $selling_price; ?>
+                                            </div>
+                                            <div class="zv-card-footer">
+                                                <a href="product-details.php?id=<?php echo $pro_id; ?>"
+                                                    class="zv-btn-outline"><i class="fa-solid fa-eye"></i> View
+                                                    Details</a>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
                                 <?php
                                     }
                                 } else {
@@ -465,8 +494,12 @@ $resultCate = $conn->query($sqlCate);
         <div class="category-area section-padding reveal">
             <div class="container">
                 <div class="section-title text-center pb-5 mb-4">
-                    <span class="sub-title text-primary" style="color: var(--bs-primary); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">Discover By</span>
-                    <h2 class="title mb-0" style="font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 700;">Top Categories</h2>
+                    <span class="sub-title text-primary"
+                        style="color: var(--bs-primary); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">Discover
+                        By</span>
+                    <h2 class="title mb-0"
+                        style="font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 700;">Top
+                        Categories</h2>
                 </div>
 
                 <div class="row">
@@ -486,20 +519,22 @@ $resultCate = $conn->query($sqlCate);
                                         // Image handling (Default image agar blank hai)
                                         $c_img = !empty($row['image']) ? "admin/uploads/category/" . htmlspecialchars($row['image']) : "assets/images/product/medium-size/default-category.png";
                                 ?>
-                                        <!-- Dynamic Category Slide -->
-                                        <div class="swiper-slide">
-                                            <!-- Clicking this will take user to the new page with cate_id -->
-                                            <a href="category-products.php?id=<?php echo $c_id; ?>" class="zv-category-card shadow-sm">
-                                                <div class="zv-category-img">
-                                                    <img src="<?php echo $c_img; ?>" alt="<?php echo $c_name; ?>">
-                                                    <div class="zv-category-overlay"></div>
-                                                </div>
-                                                <div class="zv-category-content">
-                                                    <h3 class="zv-category-title"><?php echo $c_name; ?></h3>
-                                                    <span class="zv-category-link">View Products <i class="fa-solid fa-arrow-right"></i></span>
-                                                </div>
-                                            </a>
+                                <!-- Dynamic Category Slide -->
+                                <div class="swiper-slide">
+                                    <!-- Clicking this will take user to the new page with cate_id -->
+                                    <a href="category-products.php?id=<?php echo $c_id; ?>"
+                                        class="zv-category-card shadow-sm">
+                                        <div class="zv-category-img">
+                                            <img src="<?php echo $c_img; ?>" alt="<?php echo $c_name; ?>">
+                                            <div class="zv-category-overlay"></div>
                                         </div>
+                                        <div class="zv-category-content">
+                                            <h3 class="zv-category-title"><?php echo $c_name; ?></h3>
+                                            <span class="zv-category-link">View Products <i
+                                                    class="fa-solid fa-arrow-right"></i></span>
+                                        </div>
+                                    </a>
+                                </div>
                                 <?php
                                     }
                                 } else {
@@ -546,34 +581,31 @@ $resultCate = $conn->query($sqlCate);
 
                             $img_path = !empty($row['image']) ? "admin/assets/img/uploads/" . htmlspecialchars($row['image']) : "https://placehold.co/800x600/eeeeee/999999?text=Blog+Image";
                     ?>
-                            <!-- Blog Card -->
-                            <div class="zen-blog-card">
-                                <div class="card-image-wrap">
-                                    <img src="<?php echo $img_path; ?>" alt="<?php echo $title; ?>">
-                                </div>
-                                <div class="card-content">
-                                    <div class="blog-meta">
-                                        <span><i class="fa-solid fa-user-tie"></i> <?php echo $author; ?></span>
-                                        <span><i class="fa-solid fa-calendar-days"></i> <?php echo $date; ?></span>
-                                    </div>
-
-                                    <!-- FIX: Properly closed the h3 tag here -->
-                                    <h3 class="blog-title"><?php echo $title; ?></h3>
-
-                                    <p class="blog-short-desc"><?php echo $excerpt; ?></p>
-
-                                    <!-- Button with Data Attributes -->
-                                    <button type="button" class="btn-read-more open-blog-modal"
-                                        data-img="<?php echo $img_path; ?>"
-                                        data-admin="<?php echo $author; ?>"
-                                        data-date="<?php echo $date; ?>"
-                                        data-title="<?php echo $title; ?>"
-                                        data-short="<?php echo $safe_short_text; ?>"
-                                        data-long="<?php echo $safe_long_text; ?>">
-                                        READ MORE <i class="fa-solid fa-arrow-right-long"></i>
-                                    </button>
-                                </div>
+                    <!-- Blog Card -->
+                    <div class="zen-blog-card">
+                        <div class="card-image-wrap">
+                            <img src="<?php echo $img_path; ?>" alt="<?php echo $title; ?>">
+                        </div>
+                        <div class="card-content">
+                            <div class="blog-meta">
+                                <span><i class="fa-solid fa-user-tie"></i> <?php echo $author; ?></span>
+                                <span><i class="fa-solid fa-calendar-days"></i> <?php echo $date; ?></span>
                             </div>
+
+                            <!-- FIX: Properly closed the h3 tag here -->
+                            <h3 class="blog-title"><?php echo $title; ?></h3>
+
+                            <p class="blog-short-desc"><?php echo $excerpt; ?></p>
+
+                            <!-- Button with Data Attributes -->
+                            <button type="button" class="btn-read-more open-blog-modal"
+                                data-img="<?php echo $img_path; ?>" data-admin="<?php echo $author; ?>"
+                                data-date="<?php echo $date; ?>" data-title="<?php echo $title; ?>"
+                                data-short="<?php echo $safe_short_text; ?>" data-long="<?php echo $safe_long_text; ?>">
+                                READ MORE <i class="fa-solid fa-arrow-right-long"></i>
+                            </button>
+                        </div>
+                    </div>
                     <?php
                         }
                     }
@@ -600,8 +632,10 @@ $resultCate = $conn->query($sqlCate);
                     <!-- Modal Content -->
                     <div class="blog-modal-text-content">
                         <div class="blog-meta mb-3">
-                            <span id="blogModalAdmin" class="meta-item"><i class="fa-solid fa-user-tie"></i> Admin</span>
-                            <span id="blogModalDate" class="meta-item ms-4"><i class="fa-solid fa-calendar-days"></i> Date</span>
+                            <span id="blogModalAdmin" class="meta-item"><i class="fa-solid fa-user-tie"></i>
+                                Admin</span>
+                            <span id="blogModalDate" class="meta-item ms-4"><i class="fa-solid fa-calendar-days"></i>
+                                Date</span>
                         </div>
 
                         <h2 id="blogModalTitle" class="modal-title-custom mb-2"></h2>
@@ -652,73 +686,73 @@ $resultCate = $conn->query($sqlCate);
     <script src="assets/js/main.js"></script>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            if (typeof Swiper !== 'undefined') {
-                var categorySlider = new Swiper(".zv-category-slider", {
-                    slidesPerView: 1,
-                    spaceBetween: 20,
-                    loop: true,
-                    autoplay: {
-                        delay: 3000,
-                        disableOnInteraction: false
+    document.addEventListener("DOMContentLoaded", function() {
+        if (typeof Swiper !== 'undefined') {
+            var categorySlider = new Swiper(".zv-category-slider", {
+                slidesPerView: 1,
+                spaceBetween: 20,
+                loop: true,
+                autoplay: {
+                    delay: 3000,
+                    disableOnInteraction: false
+                },
+                navigation: {
+                    nextEl: ".zv-cat-btn-next",
+                    prevEl: ".zv-cat-btn-prev",
+                },
+                breakpoints: {
+                    576: {
+                        slidesPerView: 2,
+                        spaceBetween: 20
                     },
-                    navigation: {
-                        nextEl: ".zv-cat-btn-next",
-                        prevEl: ".zv-cat-btn-prev",
+                    768: {
+                        slidesPerView: 3,
+                        spaceBetween: 30
                     },
-                    breakpoints: {
-                        576: {
-                            slidesPerView: 2,
-                            spaceBetween: 20
-                        },
-                        768: {
-                            slidesPerView: 3,
-                            spaceBetween: 30
-                        },
-                        1024: {
-                            slidesPerView: 4,
-                            spaceBetween: 30
-                        }
+                    1024: {
+                        slidesPerView: 4,
+                        spaceBetween: 30
                     }
-                });
-            }
-        });
+                }
+            });
+        }
+    });
 
-        document.addEventListener("DOMContentLoaded", function() {
-            // Check if Swiper library is loaded
-            if (typeof Swiper !== 'undefined') {
-                var arrivalSlider = new Swiper(".zv-arrival-slider", {
-                    slidesPerView: 1,
-                    spaceBetween: 20,
-                    loop: true,
-                    autoplay: {
-                        delay: 3500,
-                        disableOnInteraction: false,
+    document.addEventListener("DOMContentLoaded", function() {
+        // Check if Swiper library is loaded
+        if (typeof Swiper !== 'undefined') {
+            var arrivalSlider = new Swiper(".zv-arrival-slider", {
+                slidesPerView: 1,
+                spaceBetween: 20,
+                loop: true,
+                autoplay: {
+                    delay: 3500,
+                    disableOnInteraction: false,
+                },
+                navigation: {
+                    nextEl: ".zv-swiper-btn-next",
+                    prevEl: ".zv-swiper-btn-prev",
+                },
+                breakpoints: {
+                    // when window width is >= 576px
+                    576: {
+                        slidesPerView: 2,
+                        spaceBetween: 20
                     },
-                    navigation: {
-                        nextEl: ".zv-swiper-btn-next",
-                        prevEl: ".zv-swiper-btn-prev",
+                    // when window width is >= 768px
+                    768: {
+                        slidesPerView: 3,
+                        spaceBetween: 30
                     },
-                    breakpoints: {
-                        // when window width is >= 576px
-                        576: {
-                            slidesPerView: 2,
-                            spaceBetween: 20
-                        },
-                        // when window width is >= 768px
-                        768: {
-                            slidesPerView: 3,
-                            spaceBetween: 30
-                        },
-                        // when window width is >= 1024px
-                        1024: {
-                            slidesPerView: 4,
-                            spaceBetween: 30
-                        }
+                    // when window width is >= 1024px
+                    1024: {
+                        slidesPerView: 4,
+                        spaceBetween: 30
                     }
-                });
-            }
-        });
+                }
+            });
+        }
+    });
     </script>
 
 </body>
