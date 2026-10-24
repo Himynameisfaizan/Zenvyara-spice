@@ -14,10 +14,10 @@ $dotenv = Dotenv::createImmutable(dirname(__DIR__));
 $dotenv->load();
 
 // Read env variables
-$host = $_ENV['DB_HOST'];
-$username = $_ENV['DB_USERNAME'];
-$password = $_ENV['DB_PASSWORD'];
-$dbName = $_ENV['DB_NAME'];
+$host = "localhost";
+$username = "root";
+$password = "";
+$dbName = "zevyara";
 $site = $_ENV['SITE'];
 
 // Make `$site` global

