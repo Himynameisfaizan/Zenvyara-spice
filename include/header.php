@@ -9,8 +9,14 @@
     <meta name="robots" content="noindex, follow" />
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <!-- Favicon -->
-    <link rel="shortcut icon" href="assets/img/favicon.png" type="image/png">
+    <link rel="icon" href="favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
+
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- CSS
@@ -27,9 +33,9 @@
     <link rel="stylesheet" href="assets/css/plugins/nice-select.css">
     <link rel="stylesheet" href="assets/css/plugins/magnific-popup.min.css" />
 
-    
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Style CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/index.css">
@@ -53,7 +59,8 @@
                 <div class="col-md-6">
                     <ul class="topbar-contact">
                         <li><i class="fa-solid fa-phone"></i> <a href="tel:+917874616897">+91 78746 16897</a></li>
-                        <li><i class="fa-solid fa-envelope"></i> <a href="mailto:info@zenvyara.com">info@zenvyara.com</a></li>
+                        <li><i class="fa-solid fa-envelope"></i> <a
+                                href="mailto:info@zenvyara.com">info@zenvyara.com</a></li>
                     </ul>
                 </div>
                 <div class="col-md-6 text-end">
@@ -71,7 +78,7 @@
 
                 <!-- Logo Section -->
                 <div class="header-logo">
-                    <a href="index.php">
+                    <a href="./">
                         <img src="assets/images/logo/dark.png" alt="Zenvyara Logo" class="img-fluid">
                     </a>
                 </div>
@@ -79,7 +86,7 @@
                 <!-- Navigation Menu (Centered & Stylish) -->
                 <nav class="zen-main-nav d-none d-lg-block">
                     <ul>
-                        <li><a href="index.php" class="active">Home</a></li>
+                        <li><a href="./" class="active">Home</a></li>
                         <li><a href="about.php">About</a></li>
                         <li><a href="product.php">Product</a></li>
                         <li><a href="service.php">Our Services</a></li>
